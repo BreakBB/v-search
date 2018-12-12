@@ -1,0 +1,10 @@
+.Home-Page {
+  width: 100%;
+}
+
+.filter-wrapper {
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  display: flex;
+}

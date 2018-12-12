@@ -1,0 +1,14 @@
+.Result-Table {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 25px;
+}
+
+.table {
+  min-width: 1020px;
+}
+
+.table-wrapper {
+  overflow: auto;
+  margin: 10px;
+}
