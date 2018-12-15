@@ -24,7 +24,6 @@ class SearchBar extends React.Component {
           id="search"
           label="Film/Serien Titel"
           type="search"
-          margin="normal"
           onChange={this.handleTitleInput}
           className="searchbar-input"
         />
