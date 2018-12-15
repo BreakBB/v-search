@@ -33,8 +33,8 @@ class ResultTable extends React.Component {
     this.setState({order, orderBy});
   };
 
-  handleClick = (event, id) => {
-    //TODO: Call external link
+  handleClick = (event, url) => {
+    window.open(url, "_blank");
   };
 
   handleChangePage = (event, page) => {
@@ -72,9 +72,9 @@ class ResultTable extends React.Component {
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={event => this.handleClick(event, n.url)}
                       tabIndex={-1}
-                      key={n.id}
+                      key={n.movie_id}
                     >
                       <TableCell component="th" scope="row" padding="none">
                         {n.title}

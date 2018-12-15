@@ -17,6 +17,9 @@ class App extends Component {
         main: '#fb8c00',
       },
     },
+    typography: {
+      useNextVariants: true,
+    },
   });
 
   render() {
