@@ -25,6 +25,9 @@ class FilterButton extends React.Component {
         value={this.state.selection}
         onChange={this.handleChange}
       >
+        <MenuItem key="none" value={null}>
+          -Auswahl-
+        </MenuItem>
         {this.props.children.map(name => (
           <MenuItem key={name} value={name}>
             {name}

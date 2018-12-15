@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import ResultTableHead from './ResultTableHead'
 import {
   Paper,
@@ -17,20 +18,8 @@ class ResultTable extends React.Component {
   state = {
     order: 'asc',
     orderBy: 'title',
-    data: [
-      {
-        id: 1,
-        title: "Die Hard",
-        rating: 4.5,
-        imdb: 8.2,
-        year: 1988,
-        genres: ["Action, Adventure, Drama, Suspense"],
-        fsk: 16
-      },
-      {id: 2, title: "Die Hard 2", rating: 4.5, imdb: 7.1, year: 1990, genres: ["Action"], fsk: 16}
-    ],
     page: 0,
-    rowsPerPage: 5,
+    rowsPerPage: 10,
   };
 
   handleRequestSort = (event, property) => {
@@ -57,14 +46,15 @@ class ResultTable extends React.Component {
   };
 
   render() {
-    const {data, order, orderBy, rowsPerPage, page} = this.state;
+    const {order, orderBy, rowsPerPage, page} = this.state;
+    const data = this.props.data;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
       <Paper className="Result-Table">
         <Toolbar>
           <Typography variant="h6" id="tableTitle">
-            Search Results
+            Suchergebnisse
           </Typography>
         </Toolbar>
         <div className="table-wrapper">
@@ -92,7 +82,7 @@ class ResultTable extends React.Component {
                       <TableCell align="right">{n.rating}</TableCell>
                       <TableCell align="right">{n.imdb}</TableCell>
                       <TableCell align="right">{n.year}</TableCell>
-                      <TableCell align="right">{n.genres}</TableCell>
+                      <TableCell align="right">{n.genres.map(e => e + " ")}</TableCell>
                       <TableCell align="right">{n.fsk}</TableCell>
                     </TableRow>
                   );
@@ -106,7 +96,7 @@ class ResultTable extends React.Component {
           </Table>
         </div>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10, 25, 50]}
           component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}
@@ -124,5 +114,9 @@ class ResultTable extends React.Component {
     );
   }
 }
+
+ResultTable.propTypes = {
+  data: PropTypes.array.isRequired
+};
 
 export default ResultTable;

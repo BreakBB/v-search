@@ -7,16 +7,13 @@ import './SearchBar.css';
 
 class SearchBar extends React.Component {
 
-  state = {
-    title: dataStore.title,
-    showProgressbar: false
-  };
-
   handleTitleInput = event => {
-    this.setState({
-      title: event.target.value
-    });
-    dataStore.setTitle(event.target.value);
+    let value = null;
+    if (event.target.value !== "") {
+      value = event.target.value;
+    }
+
+    dataStore.setTitle(value);
   };
 
   render() {
@@ -25,7 +22,6 @@ class SearchBar extends React.Component {
         <TextField
           autoFocus
           id="search"
-          defaultValue={dataStore.vin}
           label="Film/Serien Titel"
           type="search"
           margin="normal"
@@ -35,6 +31,7 @@ class SearchBar extends React.Component {
         <Button
           id="btnSearch"
           variant="contained"
+          color="secondary"
           onClick={this.props.onSearchClick}
           className="searchbar-button"
         >

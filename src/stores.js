@@ -8,12 +8,12 @@ export const authenticationStore = observable({
 });
 
 class DataStore {
-  title = '';
-  rating = 0;
-  imdb = 0;
-  year = 0;
-  genres = [];
-  fsk = 0;
+  title = null;
+  rating = null;
+  imdb = null;
+  year = null;
+  genres = null;
+  fsk = null;
 
   setTitle(title) {
     this.title = title;

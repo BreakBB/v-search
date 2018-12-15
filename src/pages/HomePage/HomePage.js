@@ -12,21 +12,50 @@ import GenreSelection from "../../components/GenreSelection/GenreSelection";
 class HomePage extends React.Component {
 
   state = {
-    showProgressbar: false
+    showProgressbar: false,
+    data: [],
+    genres: []
   };
 
-  onSearchClick() {
+  componentDidMount() {
+    this.fetchGenres();
+  }
+
+  async fetchGenres() {
+    const result = await fetch('http://localhost:8666/api/de/genres');
+    let genres = await result.json();
+
+    genres = genres.sort();
+
+    this.setState({
+      genres: genres
+    });
+  }
+
+  async onSearchClick() {
     this.setState({showProgressbar: true});
 
-    //TODO: Make actual search query
+    const result = await fetch(
+      "http://localhost:8666/api/de/movies", {
+        'method': 'post',
+        'headers': {
+          'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify(dataStore)
+      });
 
-    //this.setState({showProgressbar: false})
+    const json = await result.json();
+
+    this.setState({
+      showProgressbar: false,
+      data: json
+    })
   }
 
   render() {
     return (
       <Paper className="Home-Page">
-        <SearchBar onSearchClick={this.onSearchClick}/>
+        <SearchBar onSearchClick={this.onSearchClick.bind(this)}/>
         <Toolbar className="filter-wrapper">
           <Typography variant="h5" color="inherit" id="filterTitle">
             Filter
@@ -44,7 +73,7 @@ class HomePage extends React.Component {
           </Typography>
         </Toolbar>
         <GenreSelection aria-labelledby="genreTitle"
-                        genreList={["Comedy", "Action", "Horror", "Krimi", "Kinder", "Abenteuer", "Dokumentation", "Animation", "Science Fiction", "Drama"]}/>
+                        genreList={this.state.genres}/>
         {
           this.state.showProgressbar
             ?
@@ -52,7 +81,7 @@ class HomePage extends React.Component {
             :
             null
         }
-        <ResultTable/>
+        <ResultTable data={this.state.data}/>
       </Paper>)
   }
 }

@@ -8,7 +8,11 @@ import {dataStore} from "../../stores";
 class GenreSelection extends React.Component {
 
   handleSelections = genreTitle => {
-    const genres = dataStore.genres;
+    let genres = dataStore.genres;
+
+    if (genres === null) {
+      genres = [];
+    }
     const selectedIndex = genres.indexOf(genreTitle);
 
     let newGenres = [];
@@ -24,6 +28,10 @@ class GenreSelection extends React.Component {
         genres.slice(0, selectedIndex),
         genres.slice(selectedIndex + 1),
       );
+    }
+
+    if (newGenres.length === 0) {
+      newGenres = null;
     }
 
     dataStore.setGenres(newGenres);
