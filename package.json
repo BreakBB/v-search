@@ -2,9 +2,11 @@
   "name": "v-search",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://BreakBB.github.io/v-search",
   "dependencies": {
     "@material-ui/core": "^3.6.2",
     "@material-ui/icons": "^3.0.1",
+    "gh-pages": "^2.0.1",
     "mobx": "^5.7.0",
     "mobx-react": "^5.4.2",
     "prop-types": "latest",
@@ -16,6 +18,8 @@
     "sha256": "^0.2.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

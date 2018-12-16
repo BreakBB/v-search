@@ -16,6 +16,12 @@ class SearchBar extends React.Component {
     dataStore.setTitle(value);
   };
 
+  handleEnterKey = event => {
+    if (event.type === "keydown" && event.key === "Enter") {
+      this.props.onSearchClick();
+    }
+  };
+
   render() {
     return (
       <div className="searchbar-container">
@@ -25,6 +31,7 @@ class SearchBar extends React.Component {
           label="Film/Serien Titel"
           type="search"
           onChange={this.handleTitleInput}
+          onKeyDown={this.handleEnterKey}
           className="searchbar-input"
         />
         <Button

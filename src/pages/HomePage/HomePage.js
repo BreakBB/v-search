@@ -8,6 +8,7 @@ import {IMDB_RATINGS, RATINGS, YEARS, FSK} from "../../components/FilterButton/c
 import ResultTable from "../../components/ResultTable/ResultTable";
 import {Paper, Toolbar, Typography} from "@material-ui/core/es/index";
 import GenreSelection from "../../components/GenreSelection/GenreSelection";
+import {BACKEND_ADDRESS} from "../../app-config";
 
 class HomePage extends React.Component {
 
@@ -22,7 +23,7 @@ class HomePage extends React.Component {
   }
 
   async fetchGenres() {
-    const result = await fetch('http://localhost:8666/api/de/genres');
+    const result = await fetch(BACKEND_ADDRESS + '/api/de/genres');
     let genres = await result.json();
 
     genres = genres.sort();
@@ -36,7 +37,7 @@ class HomePage extends React.Component {
     this.setState({showProgressbar: true});
 
     const result = await fetch(
-      "http://localhost:8666/api/de/movies", {
+      BACKEND_ADDRESS + "/api/de/movies", {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'
