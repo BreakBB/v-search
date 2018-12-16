@@ -13,19 +13,17 @@ import './HeaderAppBar.css'
 class HeaderAppBar extends React.Component {
   render() {
     return (
-      <div className="Header-App-Bar">
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className="menu-button" color="inherit" aria-label="Menu">
-              <MenuIcon/>
-            </IconButton>
-            <Typography variant="h6" color="inherit" className="grow">
-              {this.props.title}
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar className="Header-App-Bar" position="static">
+        <Toolbar>
+          <IconButton className="menu-button" color="inherit" aria-label="Menu">
+            <MenuIcon/>
+          </IconButton>
+          <Typography variant="h6" color="inherit" className="grow">
+            {this.props.title}
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
     );
   }
 }

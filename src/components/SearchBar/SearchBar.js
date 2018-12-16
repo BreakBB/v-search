@@ -39,7 +39,6 @@ class SearchBar extends React.Component {
           variant="contained"
           color="secondary"
           onClick={this.props.onSearchClick}
-          className="searchbar-button"
         >
           <Search/>
           Suche

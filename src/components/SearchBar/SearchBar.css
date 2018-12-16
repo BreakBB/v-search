@@ -1,15 +1,11 @@
 .searchbar-container {
-  width: 40%;
-  margin-left: 30%;
-  margin-right: 30%;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
   padding-top: 30px;
   padding-bottom: 20px;
 }
 
 .searchbar-input {
-  width: 85%;
-}
-
-.searchbar-button {
-  width: 15%;
+  width: 60%;
 }

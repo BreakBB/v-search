@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {HomePage, LoginPage} from './pages';
 import {observer} from 'mobx-react';
@@ -24,20 +24,18 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="App">
         <BrowserRouter>
-          <Switch exact>
-            <MuiThemeProvider theme={this.theme}>
-              <div className="App">
-                <HeaderAppBar title="v-search"/>
-                <Route exact path={HOME_PATH} component={HomePage}/>
-                <Route exact path={LOGIN_PATH} component={LoginPage}/>
-                {this.props.children}
-              </div>
-            </MuiThemeProvider>
-          </Switch>
+          <MuiThemeProvider theme={this.theme}>
+            <HeaderAppBar title="v-search"/>
+            <Switch exact>
+              <Route exact path={HOME_PATH} component={HomePage}/>
+              <Route exact path={LOGIN_PATH} component={LoginPage}/>
+              {this.props.children}
+            </Switch>
+          </MuiThemeProvider>
         </BrowserRouter>
-      </React.Fragment>
+      </div>
     );
   }
 }

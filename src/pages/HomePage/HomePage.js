@@ -64,8 +64,8 @@ class HomePage extends React.Component {
         </Toolbar>
         <div className="filter-wrapper" aria-labelledby="filterTitle">
           <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setRating(v)}/>
-          <FilterButton title="IMDb" children={IMDB_RATINGS} dataStoreAction={v => dataStore.setIMDb(v)}/>
-          <FilterButton title="Jahr" children={YEARS} dataStoreAction={v => dataStore.setYear(v)}/>
+          <FilterButton title="IMDb" number children={IMDB_RATINGS} dataStoreAction={v => dataStore.setIMDb(v)}/>
+          <FilterButton title="Jahr" number children={YEARS} dataStoreAction={v => dataStore.setYear(v)}/>
           <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setFSK(v)}/>
         </div>
         <Toolbar className="genre-wrapper">
