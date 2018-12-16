@@ -1,7 +1,7 @@
 import React from 'react';
 import {authenticationStore, configStore, dataStore} from '../../stores';
 import {observer} from 'mobx-react';
-import {FilterButton, SearchBar} from '../../components';
+import {FilterButton, FilterSelection, SearchBar} from '../../components';
 import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {IMDB_RATINGS, RATINGS, YEARS, FSK} from "../../components/FilterButton/constants";
@@ -69,17 +69,12 @@ class HomePage extends React.Component {
     return (
       <Paper className="Home-Page">
         <SearchBar onSearchClick={this.onSearchClick.bind(this)}/>
-        <Toolbar className="filter-wrapper">
-          <Typography variant="h5" color="inherit" id="filterTitle">
-            Filter
-          </Typography>
-        </Toolbar>
-        <div className="filter-wrapper" aria-labelledby="filterTitle">
+        <FilterSelection isMobile={configStore.isMobile}>
           <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setRating(v)}/>
           <FilterButton title="IMDb" number children={IMDB_RATINGS} dataStoreAction={v => dataStore.setIMDb(v)}/>
           <FilterButton title="Jahr" number children={YEARS} dataStoreAction={v => dataStore.setYear(v)}/>
           <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setFSK(v)}/>
-        </div>
+        </FilterSelection>
         <GenreSelection aria-labelledby="genreTitle"
                         genreList={this.state.genres}
                         isMobile={configStore.isMobile}

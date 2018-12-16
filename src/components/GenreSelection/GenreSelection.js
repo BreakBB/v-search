@@ -67,7 +67,7 @@ class GenreSelection extends React.Component {
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
             {typoComp}
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="expansion-details">
+          <ExpansionPanelDetails>
             {genreComp}
           </ExpansionPanelDetails>
         </ExpansionPanel>
