@@ -6,7 +6,7 @@ import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {IMDB_RATINGS, RATINGS, YEARS, FSK} from "../../components/FilterButton/constants";
 import ResultTable from "../../components/ResultTable/ResultTable";
-import {Paper, Toolbar, Typography} from "@material-ui/core/es/index";
+import {Paper} from "@material-ui/core/es/index";
 import GenreSelection from "../../components/GenreSelection/GenreSelection";
 import {BACKEND_ADDRESS} from "../../app-config";
 
