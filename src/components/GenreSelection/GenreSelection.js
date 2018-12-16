@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import FormGroup from '@material-ui/core/FormGroup';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GenreItem from "../GenreItem/GenreItem";
 import './GenreSelection.css'
 import {dataStore} from "../../stores";
+import {
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Toolbar,
+  Typography
+} from "@material-ui/core/es/index";
 
 class GenreSelection extends React.Component {
 
@@ -38,18 +46,49 @@ class GenreSelection extends React.Component {
   };
 
   render() {
-    return (
+
+    const typoComp = (
+      <Typography variant="h6" color="inherit" id="genreTitle">
+        Genres
+      </Typography>
+    );
+
+    const genreComp = (
       <FormGroup row className="genre-wrapper">
         {this.props.genreList.map(genre => (
           <GenreItem key={genre} title={genre} handleSelection={this.handleSelections}/>
         ))}
       </FormGroup>
     );
+
+    if (this.props.isMobile) {
+      return (
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+            {typoComp}
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className="expansion-details">
+            {genreComp}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      );
+    }
+
+
+    return (
+      <React.Fragment>
+        <Toolbar className="genre-wrapper">
+          {typoComp}
+        </Toolbar>
+        {genreComp}
+      </React.Fragment>
+    );
   }
 }
 
 GenreSelection.propTypes = {
-  genreList: PropTypes.array.isRequired
+  genreList: PropTypes.array.isRequired,
+  isMobile: PropTypes.bool.isRequired
 };
 
 export default GenreSelection;

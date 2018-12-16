@@ -1,5 +1,5 @@
 import React from 'react';
-import {authenticationStore, dataStore} from '../../stores';
+import {authenticationStore, configStore, dataStore} from '../../stores';
 import {observer} from 'mobx-react';
 import {FilterButton, SearchBar} from '../../components';
 import './HomePage.css';
@@ -17,6 +17,18 @@ class HomePage extends React.Component {
     data: [],
     genres: []
   };
+
+  static handleWindowResize() {
+    configStore.setMobile(window.innerWidth <= 600)
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', HomePage.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', HomePage.handleWindowResize);
+  }
 
   componentDidMount() {
     this.fetchGenres();
@@ -68,13 +80,10 @@ class HomePage extends React.Component {
           <FilterButton title="Jahr" number children={YEARS} dataStoreAction={v => dataStore.setYear(v)}/>
           <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setFSK(v)}/>
         </div>
-        <Toolbar className="genre-wrapper">
-          <Typography variant="h6" color="inherit" id="genreTitle">
-            Genres
-          </Typography>
-        </Toolbar>
         <GenreSelection aria-labelledby="genreTitle"
-                        genreList={this.state.genres}/>
+                        genreList={this.state.genres}
+                        isMobile={configStore.isMobile}
+        />
         {
           this.state.showProgressbar
             ?

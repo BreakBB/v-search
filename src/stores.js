@@ -7,6 +7,11 @@ export const authenticationStore = observable({
   setToken: action((newVal) => authenticationStore.setToken = newVal),
 });
 
+export const configStore = observable({
+  isMobile: window.innerWidth <= 600,
+  setMobile: action((newVal) => configStore.isMobile = newVal)
+});
+
 class DataStore {
   title = null;
   rating = null;
