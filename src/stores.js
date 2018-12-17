@@ -19,6 +19,8 @@ class DataStore {
   year = null;
   genres = null;
   fsk = null;
+  movies = true;
+  series = true;
 
   setTitle(title) {
     this.title = title;
@@ -43,6 +45,14 @@ class DataStore {
   setFSK(fsk) {
     this.fsk = fsk;
   }
+
+  setMovies(movies) {
+    this.movies = movies;
+  }
+
+  setSeries(series) {
+    this.series = series;
+  }
 }
 
 decorate(DataStore, {
@@ -52,12 +62,16 @@ decorate(DataStore, {
   year: observable,
   genres: observable,
   fsk: observable,
+  movies: observable,
+  series: observable,
   setTitle: action,
   setRating: action,
   setIMDb: action,
   setYear: action,
   setGenres: action,
   setFSK: action,
+  setMovies: action,
+  setSeries: action,
 });
 
 export const dataStore = new DataStore();

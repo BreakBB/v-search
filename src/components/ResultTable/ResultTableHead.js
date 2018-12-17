@@ -9,6 +9,7 @@ const rows = [
   {id: 'imdb', numeric: true, disablePadding: false, label: 'IMDb (1.0 - 10.0)'},
   {id: 'year', numeric: true, disablePadding: false, label: 'Jahr'},
   {id: 'genres', numeric: false, disablePadding: false, label: 'Genres'},
+  {id: 'movie_type', numeric: false, disablePadding: false, label: 'Typ'},
   {id: 'fsk', numeric: false, disablePadding: false, label: 'FSK'},
 ];
 

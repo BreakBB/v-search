@@ -109,6 +109,7 @@ class ResultTable extends React.Component {
                       <TableCell align="right">{n.imdb}</TableCell>
                       <TableCell align="right">{n.year}</TableCell>
                       <TableCell align="right">{n.genres.join(', ')}</TableCell>
+                      <TableCell align="right">{n.movie_type}</TableCell>
                       <TableCell align="right">{n.fsk}</TableCell>
                     </TableRow>
                   );
