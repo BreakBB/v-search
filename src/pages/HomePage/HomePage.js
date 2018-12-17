@@ -6,7 +6,7 @@ import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS, FSK} from "../../components/FilterButton/constants";
 import ResultTable from "../../components/ResultTable/ResultTable";
-import {FormControlLabel, Paper, Switch} from "@material-ui/core/es/index";
+import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
 import GenreSelection from "../../components/GenreSelection/GenreSelection";
 import {BACKEND_ADDRESS} from "../../app-config";
 
@@ -79,18 +79,20 @@ class HomePage extends React.Component {
       <Paper className="Home-Page">
         <SearchBar onSearchClick={this.onSearchClick}/>
         <FilterSelection isMobile={configStore.isMobile}>
-          <FormControlLabel
-            control={
-              <Switch checked={dataStore.movies} onChange={() => this.onSwitchChange('movies')}/>
-            }
-            label="Filme"
-          />
-          <FormControlLabel
-            control={
-              <Switch checked={dataStore.series} onChange={() => this.onSwitchChange('series')}/>
-            }
-            label="Serien"
-          />
+          <FormGroup row className="form-group">
+            <FormControlLabel
+              control={
+                <Switch checked={dataStore.movies} onChange={() => this.onSwitchChange('movies')}/>
+              }
+              label="Filme"
+            />
+            <FormControlLabel
+              control={
+                <Switch checked={dataStore.series} onChange={() => this.onSwitchChange('series')}/>
+              }
+              label="Serien"
+            />
+          </FormGroup>
           <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setRating(v)}/>
           <FilterButton title="IMDb" number dataStoreAction={v => dataStore.setIMDb(v)}/>
           <FilterButton title="Jahr" number dataStoreAction={v => dataStore.setYear(v)}/>
