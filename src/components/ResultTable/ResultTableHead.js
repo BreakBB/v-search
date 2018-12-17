@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {TableCell, TableHead, TableRow, TableSortLabel, Tooltip} from "@material-ui/core/es/index";
 
 const rows = [
-  {id: 'title', numeric: false, disablePadding: true, label: 'Titel'},
+  {id: 'poster', numeric: false, disablePadding: true, label: ''},
+  {id: 'title', numeric: false, disablePadding: false, label: 'Titel'},
   {id: 'rating', numeric: true, disablePadding: false, label: 'Bewertung (1.0 - 5.0)'},
   {id: 'imdb', numeric: true, disablePadding: false, label: 'IMDb (1.0 - 10.0)'},
   {id: 'year', numeric: true, disablePadding: false, label: 'Jahr'},

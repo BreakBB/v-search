@@ -21,3 +21,12 @@ export function stableSort(array, cmp) {
 export function getSorting(order, orderBy) {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
+
+export function arrayBufferToBase64(buffer) {
+  let binary = "";
+  const bytes = [].slice.call(new Uint8Array(buffer));
+
+  bytes.forEach((b) => binary += String.fromCharCode(b));
+
+  return window.btoa(binary);
+}

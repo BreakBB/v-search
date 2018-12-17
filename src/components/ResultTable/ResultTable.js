@@ -12,7 +12,7 @@ import {
   Typography
 } from "@material-ui/core/es/index";
 import './ResultTable.css'
-import {getSorting, stableSort} from "../../utilities";
+import {arrayBufferToBase64, getSorting, stableSort} from "../../utilities";
 
 class ResultTable extends React.Component {
   state = {
@@ -20,6 +20,7 @@ class ResultTable extends React.Component {
     orderBy: 'title',
     page: 0,
     rowsPerPage: 10,
+    hovered: {}
   };
 
   handleRequestSort = (event, property) => {
@@ -43,6 +44,24 @@ class ResultTable extends React.Component {
 
   handleChangeRowsPerPage = event => {
     this.setState({rowsPerPage: event.target.value});
+  };
+
+  handleRowHover = (movie_id, enter) => {
+    let newHovered = this.state.hovered;
+    if (enter) {
+      newHovered[movie_id] = true;
+
+      this.setState({
+        hovered: newHovered
+      });
+    }
+    else {
+      newHovered[movie_id] = false;
+
+      this.setState({
+        hovered: newHovered
+      })
+    }
   };
 
   render() {
@@ -72,11 +91,18 @@ class ResultTable extends React.Component {
                   return (
                     <TableRow
                       hover
+                      onMouseEnter={() => this.handleRowHover(n.movie_id, true)}
+                      onMouseLeave={() => this.handleRowHover(n.movie_id, false)}
+                      className="pointer"
                       onClick={event => this.handleClick(event, n.url)}
                       tabIndex={-1}
                       key={n.movie_id}
                     >
                       <TableCell component="th" scope="row" padding="none">
+                        <img className="poster" style={{height: `${this.state.hovered[n.movie_id] ? '100px' : '80px'}`}}
+                             src={'data:image/jpeg;base64,' + arrayBufferToBase64(n.poster.data)} alt="None"/>
+                      </TableCell>
+                      <TableCell align="right">
                         {n.title}
                       </TableCell>
                       <TableCell align="right">{n.rating}</TableCell>
@@ -89,7 +115,7 @@ class ResultTable extends React.Component {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{height: 49 * emptyRows}}>
-                  <TableCell colSpan={6}/>
+                  <TableCell colSpan={7}/>
                 </TableRow>
               )}
             </TableBody>
