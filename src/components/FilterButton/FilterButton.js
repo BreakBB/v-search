@@ -26,6 +26,24 @@ class FilterButton extends React.Component {
   };
 
   render() {
+    let menuItems = null;
+
+    if (!this.props.number) {
+      menuItems = [];
+      menuItems.push(
+        <MenuItem key="none" value={null}>
+          -Auswahl-
+        </MenuItem>
+      );
+      menuItems.push(
+        this.props.children.map(name => (
+          <MenuItem key={name} value={name}>
+            {name}
+          </MenuItem>
+        ))
+      );
+    }
+
     return (
       <TextField
         select={!this.props.number}
@@ -36,24 +54,17 @@ class FilterButton extends React.Component {
         value={this.state.selection}
         onChange={this.handleChange}
       >
-        <MenuItem key="none" value={null}>
-          -Auswahl-
-        </MenuItem>
-        {this.props.children.map(name => (
-          <MenuItem key={name} value={name}>
-            {name}
-          </MenuItem>
-        ))}
+        {menuItems}
       </TextField>
     );
   }
 }
 
 FilterButton.propTypes = {
-  children: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  number: PropTypes.bool,
-  dataStoreAction: PropTypes.func.isRequired
+  dataStoreAction: PropTypes.func.isRequired,
+  children: PropTypes.array,
+  number: PropTypes.bool
 };
 
 export default FilterButton;
