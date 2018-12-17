@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 import {FilterButton, FilterSelection, SearchBar} from '../../components';
 import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {IMDB_RATINGS, RATINGS, YEARS, FSK} from "../../components/FilterButton/constants";
+import {RATINGS, FSK} from "../../components/FilterButton/constants";
 import ResultTable from "../../components/ResultTable/ResultTable";
 import {Paper} from "@material-ui/core/es/index";
 import GenreSelection from "../../components/GenreSelection/GenreSelection";
@@ -71,8 +71,8 @@ class HomePage extends React.Component {
         <SearchBar onSearchClick={this.onSearchClick.bind(this)}/>
         <FilterSelection isMobile={configStore.isMobile}>
           <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setRating(v)}/>
-          <FilterButton title="IMDb" number children={IMDB_RATINGS} dataStoreAction={v => dataStore.setIMDb(v)}/>
-          <FilterButton title="Jahr" number children={YEARS} dataStoreAction={v => dataStore.setYear(v)}/>
+          <FilterButton title="IMDb" number dataStoreAction={v => dataStore.setIMDb(v)}/>
+          <FilterButton title="Jahr" number dataStoreAction={v => dataStore.setYear(v)}/>
           <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setFSK(v)}/>
         </FilterSelection>
         <GenreSelection aria-labelledby="genreTitle"
