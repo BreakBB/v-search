@@ -149,7 +149,7 @@ export class LoginPageNoRouter extends React.Component {
       //         .then(json => {
       //           this.setState({loginInProgess: false});
       //           if (json && json.loginStatus === "success") {
-      //             authenticationStore.setUserLevel(json.authorityLevel);
+      //             authenticationStore.login(json.authorityLevel);
       //             this.props.history.push(HOME_PATH);
       //
       //           } else {

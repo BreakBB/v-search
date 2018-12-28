@@ -1,5 +1,5 @@
 import React from 'react';
-import {authenticationStore, configStore, dataStore} from '../../stores';
+import {configStore, dataStore} from '../../stores';
 import {observer} from 'mobx-react';
 import {FilterButton, FilterSelection, SearchBar} from '../../components';
 import './HomePage.css';

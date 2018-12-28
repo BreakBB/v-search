@@ -1,10 +1,9 @@
 import {observable, decorate, action} from 'mobx';
 
 export const authenticationStore = observable({
-  userLevel: 0,
-  token: "",
-  setUserLevel: action((newVal) => authenticationStore.userLevel = newVal),
-  setToken: action((newVal) => authenticationStore.setToken = newVal),
+  isLoggedIn: false,
+  login: action(() => authenticationStore.isLoggedIn = true),
+  logout: action(() => authenticationStore.isLoggedIn = false),
 });
 
 export const configStore = observable({
