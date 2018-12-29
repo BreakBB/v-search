@@ -1,4 +1,5 @@
 import React from 'react'
+import {observer} from 'mobx-react';
 import Button from '@material-ui/core/Button';
 import Dialog from "@material-ui/core/es/Dialog/Dialog";
 import "./LoginButton.css"
@@ -15,8 +16,7 @@ class LoginButton extends React.Component {
     open: false,
     userName: "",
     password: "",
-    loginFailed: false,
-    isLoggedIn: false
+    loginFailed: false
   };
 
   handleClickOpen = () => {
@@ -50,7 +50,6 @@ class LoginButton extends React.Component {
       authStore.login();
       this.setState({
         loginFailed: false,
-        isLoggedIn: true,
         open: false
       })
     }
@@ -63,13 +62,10 @@ class LoginButton extends React.Component {
 
   handleLogout = () => {
     authStore.logout();
-    this.setState({
-      isLoggedIn: false
-    })
   };
 
   render() {
-    if (this.state.isLoggedIn) {
+    if (authStore.isLoggedIn) {
       return (
         <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
       )
@@ -124,4 +120,4 @@ class LoginButton extends React.Component {
   }
 }
 
-export default LoginButton;
+export default observer(LoginButton);
