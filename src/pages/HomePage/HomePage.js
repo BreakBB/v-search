@@ -1,13 +1,11 @@
 import React from 'react';
 import {configStore, dataStore} from '../../stores';
 import {observer} from 'mobx-react';
-import {FilterButton, FilterSelection, SearchBar} from '../../components';
+import {FilterButton, FilterSelection, GenreSelection, ResultTable, SearchBar} from '../../components';
 import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS, FSK} from "../../components/FilterButton/constants";
-import ResultTable from "../../components/ResultTable/ResultTable";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
-import GenreSelection from "../../components/GenreSelection/GenreSelection";
 import {BACKEND_ADDRESS} from "../../app-config";
 
 class HomePage extends React.Component {

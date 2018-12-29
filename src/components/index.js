@@ -1,3 +1,8 @@
 export {default as FilterButton} from './FilterButton/FilterButton'
 export {default as FilterSelection} from './FilterSelection/FilterSelection'
+export {default as GenreItem} from './GenreItem/GenreItem'
+export {default as GenreSelection} from './GenreSelection/GenreSelection'
+export {default as HeaderAppBar} from './HeaderAppBar/HeaderAppBar'
+export {default as LoginButton} from './LoginButton/LoginButton'
+export {default as ResultTable} from './ResultTable/ResultTable'
 export {default as SearchBar} from './SearchBar/SearchBar'

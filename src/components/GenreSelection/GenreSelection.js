@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import FormGroup from '@material-ui/core/FormGroup';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import GenreItem from "../GenreItem/GenreItem";
+import GenreItem from '../GenreItem/GenreItem';
 import './GenreSelection.css'
 import {dataStore} from "../../stores";
 import {

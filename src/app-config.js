@@ -1,4 +1,3 @@
-export const LOGIN_PATH = process.env.PUBLIC_URL + "/Login";
 export const HOME_PATH = process.env.PUBLIC_URL + "/";
 
 let BACKEND_URL = "http://ec2-18-184-61-80.eu-central-1.compute.amazonaws.com";
