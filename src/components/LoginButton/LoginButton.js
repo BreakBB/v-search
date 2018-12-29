@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import bcrypt from "bcryptjs"
 import Button from '@material-ui/core/Button';
 import Dialog from "@material-ui/core/es/Dialog/Dialog";
 import "./LoginButton.css"
@@ -9,7 +8,7 @@ import DialogContent from "@material-ui/core/es/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/es/DialogContentText/DialogContentText";
 import TextField from "@material-ui/core/es/TextField/TextField";
 import DialogActions from "@material-ui/core/es/DialogActions/DialogActions";
-import {authenticationStore} from "../../stores"
+import {authStore} from "../../stores"
 import {BACKEND_ADDRESS} from "../../app-config";
 
 class LoginButton extends React.Component {
@@ -17,7 +16,8 @@ class LoginButton extends React.Component {
     open: false,
     userName: "",
     password: "",
-    loginFailed: false
+    loginFailed: false,
+    isLoggedIn: false
   };
 
   handleClickOpen = () => {
@@ -48,9 +48,11 @@ class LoginButton extends React.Component {
       });
 
     if (result.status === 200) {
-      authenticationStore.login();
+      authStore.login();
       this.setState({
-        loginFailed: false
+        loginFailed: false,
+        isLoggedIn: true,
+        open: false
       })
     }
     else {
@@ -60,7 +62,20 @@ class LoginButton extends React.Component {
     }
   };
 
+  handleLogout = () => {
+    authStore.logout();
+    this.setState({
+      isLoggedIn: false
+    })
+  };
+
   render() {
+    if (this.state.isLoggedIn) {
+      return (
+        <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
+      )
+    }
+
     return (
       <React.Fragment>
         <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>

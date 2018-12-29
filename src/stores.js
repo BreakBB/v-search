@@ -1,9 +1,9 @@
 import {observable, decorate, action} from 'mobx';
 
-export const authenticationStore = observable({
+export const authStore = observable({
   isLoggedIn: false,
-  login: action(() => authenticationStore.isLoggedIn = true),
-  logout: action(() => authenticationStore.isLoggedIn = false),
+  login: action(() => authStore.isLoggedIn = true),
+  logout: action(() => authStore.isLoggedIn = false),
 });
 
 export const configStore = observable({
