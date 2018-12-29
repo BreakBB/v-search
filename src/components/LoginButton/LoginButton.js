@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button';
 import Dialog from "@material-ui/core/es/Dialog/Dialog";
 import "./LoginButton.css"
@@ -124,7 +123,5 @@ class LoginButton extends React.Component {
     )
   }
 }
-
-LoginButton.propTypes = {};
 
 export default LoginButton;
