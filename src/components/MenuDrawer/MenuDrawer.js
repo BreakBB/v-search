@@ -1,7 +1,9 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import IconButton from "@material-ui/core/es/IconButton/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
 import RatingIcon from '@material-ui/icons/ThumbsUpDown';
+import HomeIcon from '@material-ui/icons/Home';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import List from "@material-ui/core/es/List/List";
 import ListItem from "@material-ui/core/es/ListItem/ListItem";
@@ -16,7 +18,13 @@ class MenuDrawer extends React.Component {
   render() {
     const sideList = (
       <List>
-        <ListItem button key={'Bewerten'}>
+        <ListItem button key={'home'} onClick={() => this.props.history.push("/")}>
+          <ListItemIcon>
+            <HomeIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Startseite'}/>
+        </ListItem>
+        <ListItem button key={'rating'} onClick={() => this.props.history.push("/rating")}>
           <ListItemIcon>
             <RatingIcon/>
           </ListItemIcon>
@@ -49,4 +57,4 @@ class MenuDrawer extends React.Component {
   }
 }
 
-export default MenuDrawer;
+export default withRouter(MenuDrawer);

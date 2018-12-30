@@ -91,6 +91,7 @@ class HomePage extends React.Component {
               label="Serien"
             />
           </FormGroup>
+          <br/>
           <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setRating(v)}/>
           <FilterButton title="IMDb" number dataStoreAction={v => dataStore.setIMDb(v)}/>
           <FilterButton title="Jahr" number dataStoreAction={v => dataStore.setYear(v)}/>
@@ -108,7 +109,8 @@ class HomePage extends React.Component {
             null
         }
         <ResultTable data={this.state.data}/>
-      </Paper>)
+      </Paper>
+    );
   }
 }
 
