@@ -10,7 +10,7 @@ import './HeaderAppBar.css'
 class HeaderAppBar extends React.Component {
   render() {
     return (
-      <AppBar className="Header-App-Bar" position="static">
+      <AppBar className="Header-App-Bar" position="sticky">
         <Toolbar>
           <MenuDrawer/>
           <Typography variant="h6" color="inherit" className="grow">
