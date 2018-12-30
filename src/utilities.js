@@ -30,3 +30,11 @@ export function arrayBufferToBase64(buffer) {
 
   return window.btoa(binary);
 }
+
+export function getRandomInt(max) {
+  return Math.floor(Math.random() * max) + 1;
+}
+
+export function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import './GenreItem.css'
+import Radio from "@material-ui/core/es/Radio/Radio";
 
 class GenreItem extends React.Component {
   state = {
@@ -13,10 +14,26 @@ class GenreItem extends React.Component {
     this.setState({
       selected: !this.state.selected
     });
-    this.props.handleSelection(this.props.title);
+    this.props.handleSelection(this.props.label);
   };
 
   render() {
+    const {radioButton, ...labelProps} = this.props;
+
+    if (radioButton) {
+      return (
+        <FormControlLabel
+          value={this.props.value}
+          label={this.props.label}
+          control={
+            <Radio/>
+          }
+          className="genre-item"
+          {...labelProps}
+        />
+      );
+    }
+
     return (
       <FormControlLabel
         control={
@@ -26,16 +43,17 @@ class GenreItem extends React.Component {
             color="primary"
           />
         }
-        label={this.props.title}
+        label={this.props.label}
         className="genre-item"
       />
-    )
+    );
   }
 }
 
 GenreItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  handleSelection: PropTypes.func.isRequired
+  label: PropTypes.string.isRequired,
+  handleSelection: PropTypes.func,
+  radioButton: PropTypes.bool
 };
 
 export default GenreItem;

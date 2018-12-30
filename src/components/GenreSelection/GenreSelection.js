@@ -4,7 +4,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GenreItem from '../GenreItem/GenreItem';
 import './GenreSelection.css'
-import {dataStore} from "../../stores";
+import {configStore, dataStore} from "../../stores";
 import {
   ExpansionPanel,
   ExpansionPanelDetails,
@@ -12,8 +12,31 @@ import {
   Toolbar,
   Typography
 } from "@material-ui/core/es/index";
+import {BACKEND_ADDRESS} from "../../app-config";
+import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
+import FormControl from "@material-ui/core/es/FormControl/FormControl";
 
 class GenreSelection extends React.Component {
+
+  state = {
+    genres: [],
+    selection: null
+  };
+
+  componentDidMount() {
+    this.fetchGenres();
+  }
+
+  async fetchGenres() {
+    const result = await fetch(BACKEND_ADDRESS + '/api/de/genres');
+    let genres = await result.json();
+
+    genres = genres.sort();
+
+    this.setState({
+      genres: genres
+    });
+  }
 
   handleSelections = genreTitle => {
     let genres = dataStore.genres;
@@ -45,23 +68,54 @@ class GenreSelection extends React.Component {
     dataStore.setGenres(newGenres);
   };
 
-  render() {
+  handleRadioSelection = (event) => {
+    const selection = event.target.value;
+    this.setState({
+      selection: selection
+    });
+    this.props.onChange(selection);
+  };
 
+  render() {
     const typoComp = (
       <Typography variant="h6" color="inherit" id="genreTitle">
         Genres
       </Typography>
     );
 
-    const genreComp = (
-      <FormGroup row className="genre-wrapper">
-        {this.props.genreList.map(genre => (
-          <GenreItem key={genre} title={genre} handleSelection={this.handleSelections}/>
-        ))}
-      </FormGroup>
-    );
+    let genreComp = null;
+    if (this.props.radioGroup) {
+      genreComp = (
+        <FormControl component="fieldset">
+          <RadioGroup
+            row
+            name="genreSelection"
+            className="genre-wrapper"
+            value={this.state.selection}
+            onChange={this.handleRadioSelection}
+          >
+            {
+              this.state.genres.map(genre => (
+                <GenreItem key={genre} value={genre} label={genre} radioButton/>
+              ))
+            }
+          </RadioGroup>
+        </FormControl>
+      );
+    }
+    else {
+      genreComp = (
+        <FormGroup row className="genre-wrapper">
+          {
+            this.state.genres.map(genre => (
+              <GenreItem key={genre} label={genre} handleSelection={this.handleSelections}/>
+            ))
+          }
+        </FormGroup>
+      );
+    }
 
-    if (this.props.isMobile) {
+    if (configStore.isMobile) {
       return (
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
@@ -73,7 +127,6 @@ class GenreSelection extends React.Component {
         </ExpansionPanel>
       );
     }
-
 
     return (
       <React.Fragment>
@@ -87,8 +140,8 @@ class GenreSelection extends React.Component {
 }
 
 GenreSelection.propTypes = {
-  genreList: PropTypes.array.isRequired,
-  isMobile: PropTypes.bool.isRequired
+  radioGroup: PropTypes.bool,
+  onChange: PropTypes.func
 };
 
 export default GenreSelection;

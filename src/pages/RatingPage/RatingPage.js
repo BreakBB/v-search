@@ -2,9 +2,20 @@ import React from 'react';
 import {configStore} from '../../stores';
 import {observer} from 'mobx-react';
 import {Paper} from "@material-ui/core/es/index";
+import Typography from "@material-ui/core/es/Typography/Typography";
+import FormControl from "@material-ui/core/es/FormControl/FormControl";
+import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
+import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
+import Radio from "@material-ui/core/es/Radio/Radio";
 import './RatingPage.css';
+import {GenreSelection, Rater} from "../../components";
 
 class RatingPage extends React.Component {
+
+  state = {
+    type: "movies",
+    selection: null
+  };
 
   static handleWindowResize() {
     configStore.setMobile(window.innerWidth <= 600)
@@ -21,9 +32,41 @@ class RatingPage extends React.Component {
   componentDidMount() {
   }
 
+  handleTypeChange = (event) => {
+    this.setState({
+      type: event.target.value
+    });
+  };
+
+  handleGenreChange = (selection) => {
+    this.setState({
+      selection: selection
+    });
+  };
+
   render() {
     return (
       <Paper className="Rating-Page">
+        <Typography align="center" variant="h5" color="inherit" className="rating-heading">
+          Bewerten
+        </Typography>
+        <FormControl component="fieldset">
+          <RadioGroup
+            row
+            name="typeSelection"
+            value={this.state.type}
+            onChange={this.handleTypeChange}
+          >
+            <FormControlLabel value="movies" control={<Radio/>} label="Filme"/>
+            <FormControlLabel value="series" control={<Radio/>} label="Serien"/>
+          </RadioGroup>
+        </FormControl>
+        <GenreSelection radioGroup onChange={this.handleGenreChange}/>
+        {
+          this.state.selection ?
+            <Rater type={this.state.type} genre={this.state.selection}/>
+            : null
+        }
       </Paper>
     );
   }

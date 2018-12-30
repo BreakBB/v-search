@@ -1,0 +1,13 @@
+.Rating-Page {
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 30px;
+}
+
+h5.rating-heading {
+  padding-top: 15px;
+}
+
+.form-group {
+  justify-content: center;
+}

@@ -12,8 +12,7 @@ class HomePage extends React.Component {
 
   state = {
     showProgressbar: false,
-    data: [],
-    genres: []
+    data: []
   };
 
   static handleWindowResize() {
@@ -26,21 +25,6 @@ class HomePage extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', HomePage.handleWindowResize);
-  }
-
-  componentDidMount() {
-    this.fetchGenres();
-  }
-
-  async fetchGenres() {
-    const result = await fetch(BACKEND_ADDRESS + '/api/de/genres');
-    let genres = await result.json();
-
-    genres = genres.sort();
-
-    this.setState({
-      genres: genres
-    });
   }
 
   onSearchClick = async () => {
@@ -97,10 +81,7 @@ class HomePage extends React.Component {
           <FilterButton title="Jahr" number dataStoreAction={v => dataStore.setYear(v)}/>
           <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setFSK(v)}/>
         </FilterSelection>
-        <GenreSelection aria-labelledby="genreTitle"
-                        genreList={this.state.genres}
-                        isMobile={configStore.isMobile}
-        />
+        <GenreSelection/>
         {
           this.state.showProgressbar
             ?
