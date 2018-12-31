@@ -5,15 +5,16 @@ import ThumpUpIcon from '@material-ui/icons/ThumbUp';
 import ThumpDownIcon from '@material-ui/icons/ThumbDown';
 import Typography from "@material-ui/core/es/Typography/Typography";
 import './Rater.css'
-import {BACKEND_ADDRESS} from "../../app-config";
+import {API_DE_GENRES, API_DE_MOVIES} from "../../app-config";
 import {arrayBufferToBase64, getRandomElement} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 
 class Rater extends React.Component {
 
   state = {
-    genre_numbers: 0,
-    randomMovie: null
+    genre_numbers: [],
+    randomMovie: null,
+    error_combination: false
   };
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class Rater extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     // Only update if the genre changed
-    if (prevProps.genre !== this.props.genre) {
+    if (prevProps.genre !== this.props.genre || prevProps.type !== this.props.type) {
       // Here .then is used instead of async/await since "componentDidUpdate" is not an async method
       this.fetchGenreNumbers().then(() => {
         this.getRandomEntry();
@@ -36,18 +37,26 @@ class Rater extends React.Component {
 
   async getRandomEntry() {
     const genre_numbers = this.state.genre_numbers;
+    if (genre_numbers.length === 0) {
+      this.setState({
+        error_combination: true
+      });
+      return;
+    }
+
     const randomNumber = getRandomElement(genre_numbers);
 
-    const result = await fetch(BACKEND_ADDRESS + '/api/de/movies/' + randomNumber);
+    const result = await fetch(API_DE_MOVIES + randomNumber);
     const randomMovie = await result.json();
 
     this.setState({
-      randomMovie: randomMovie
+      randomMovie: randomMovie,
+      error_combination: false
     })
   }
 
   async fetchGenreNumbers() {
-    const result = await fetch(BACKEND_ADDRESS + '/api/de/genres/' + this.props.genre + '/numbers');
+    const result = await fetch(API_DE_GENRES + this.props.genre + '/numbers/' + this.props.type);
     const genreNumbers = await result.json();
 
     this.setState({
@@ -70,7 +79,20 @@ class Rater extends React.Component {
   render() {
     let movieItem = null;
 
-    if (this.state.randomMovie) {
+    if (this.state.error_combination) {
+      movieItem = (
+        <div className="movie-item">
+          <Typography align="center" variant="h6" color="inherit">
+            {
+              this.props.type === "movies" ?
+                "Keinen Film zu dem Genre \"" + this.props.genre + "\" gefunden."
+                : "Keine Serie zu dem Genre \"" + this.props.genre + "\" gefunden."
+            }
+          </Typography>
+        </div>
+      );
+    }
+    else if (this.state.randomMovie) {
       movieItem = (
         <div className="movie-item" onClick={() => window.open(this.state.randomMovie.url, "_blank")}>
           <Typography align="center" variant="h6" color="inherit">

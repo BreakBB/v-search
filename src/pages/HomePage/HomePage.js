@@ -6,7 +6,7 @@ import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS, FSK} from "../../components/FilterButton/constants";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
-import {BACKEND_ADDRESS} from "../../app-config";
+import {API_DE_MOVIES, BACKEND_ADDRESS} from "../../app-config";
 
 class HomePage extends React.Component {
 
@@ -31,7 +31,7 @@ class HomePage extends React.Component {
     this.setState({showProgressbar: true});
 
     const result = await fetch(
-      BACKEND_ADDRESS + "/api/de/movies", {
+      API_DE_MOVIES, {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'

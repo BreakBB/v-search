@@ -12,7 +12,7 @@ import {
   Toolbar,
   Typography
 } from "@material-ui/core/es/index";
-import {BACKEND_ADDRESS} from "../../app-config";
+import {API_DE_GENRES} from "../../app-config";
 import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
 import FormControl from "@material-ui/core/es/FormControl/FormControl";
 
@@ -28,7 +28,7 @@ class GenreSelection extends React.Component {
   }
 
   async fetchGenres() {
-    const result = await fetch(BACKEND_ADDRESS + '/api/de/genres');
+    const result = await fetch(API_DE_GENRES);
     let genres = await result.json();
 
     genres = genres.sort();

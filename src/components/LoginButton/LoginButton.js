@@ -9,7 +9,7 @@ import DialogContentText from "@material-ui/core/es/DialogContentText/DialogCont
 import TextField from "@material-ui/core/es/TextField/TextField";
 import DialogActions from "@material-ui/core/es/DialogActions/DialogActions";
 import {authStore} from "../../stores"
-import {BACKEND_ADDRESS} from "../../app-config";
+import {API_LOGIN} from "../../app-config";
 
 class LoginButton extends React.Component {
   state = {
@@ -35,7 +35,7 @@ class LoginButton extends React.Component {
 
   handleLogin = async () => {
     const result = await fetch(
-      BACKEND_ADDRESS + '/api/login', {
+      API_LOGIN, {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'
