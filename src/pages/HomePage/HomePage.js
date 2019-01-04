@@ -6,7 +6,7 @@ import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS, FSK} from "../../components/FilterButton/constants";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
-import {API_DE_MOVIES, BACKEND_ADDRESS} from "../../app-config";
+import {API_DE_MOVIES} from "../../app-config";
 
 class HomePage extends React.Component {
 
@@ -30,7 +30,7 @@ class HomePage extends React.Component {
   onSearchClick = async () => {
     this.setState({showProgressbar: true});
 
-    const result = await fetch(
+    const response = await fetch(
       API_DE_MOVIES, {
         'method': 'post',
         'headers': {
@@ -39,7 +39,7 @@ class HomePage extends React.Component {
         'body': JSON.stringify(dataStore)
       });
 
-    const json = await result.json();
+    const json = await response.json();
 
     this.setState({
       showProgressbar: false,

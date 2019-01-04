@@ -46,8 +46,8 @@ class Rater extends React.Component {
 
     const randomNumber = getRandomElement(genre_numbers);
 
-    const result = await fetch(API_DE_MOVIES + randomNumber);
-    const randomMovie = await result.json();
+    const response = await fetch(API_DE_MOVIES + randomNumber);
+    const randomMovie = await response.json();
 
     this.setState({
       randomMovie: randomMovie,
@@ -56,8 +56,8 @@ class Rater extends React.Component {
   }
 
   async fetchGenreNumbers() {
-    const result = await fetch(API_DE_GENRES + this.props.genre + '/numbers/' + this.props.type);
-    const genreNumbers = await result.json();
+    const response = await fetch(API_DE_GENRES + this.props.genre + '/numbers/' + this.props.type);
+    const genreNumbers = await response.json();
 
     this.setState({
       genre_numbers: genreNumbers

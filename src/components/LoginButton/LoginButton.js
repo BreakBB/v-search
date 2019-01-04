@@ -34,7 +34,7 @@ class LoginButton extends React.Component {
   };
 
   handleLogin = async () => {
-    const result = await fetch(
+    const response = await fetch(
       API_LOGIN, {
         'method': 'post',
         'headers': {
@@ -46,8 +46,8 @@ class LoginButton extends React.Component {
         })
       });
 
-    if (result.status === 200) {
-      authStore.login();
+    if (response.status === 200) {
+      authStore.login(await response.json());
       this.setState({
         loginFailed: false,
         open: false

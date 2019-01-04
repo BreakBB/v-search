@@ -28,8 +28,8 @@ class GenreSelection extends React.Component {
   }
 
   async fetchGenres() {
-    const result = await fetch(API_DE_GENRES);
-    let genres = await result.json();
+    const response = await fetch(API_DE_GENRES);
+    let genres = await response.json();
 
     genres = genres.sort();
 

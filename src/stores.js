@@ -2,7 +2,11 @@ import {observable, decorate, action} from 'mobx';
 
 export const authStore = observable({
   isLoggedIn: false,
-  login: action(() => authStore.isLoggedIn = true),
+  userId: null,
+  login: action((userId) => {
+    authStore.isLoggedIn = true;
+    authStore.userId = userId;
+  }),
   logout: action(() => authStore.isLoggedIn = false),
 });
 
