@@ -1,5 +1,5 @@
 import React from 'react';
-import {configStore} from '../../stores';
+import {authStore, configStore} from '../../stores';
 import {observer} from 'mobx-react';
 import {Paper} from "@material-ui/core/es/index";
 import Typography from "@material-ui/core/es/Typography/Typography";
@@ -45,6 +45,15 @@ class RatingPage extends React.Component {
   };
 
   render() {
+
+    if (!authStore.isLoggedIn) {
+      return (
+        <Typography align="center" variant="h6" color="inherit">
+          Für diese Funktion müssen Sie eingeloggt sein. Bitte nutzen Sie dafür den Knopf oben rechts.
+        </Typography>
+      );
+    }
+
     return (
       <Paper className="Rating-Page">
         <Typography align="center" variant="h5" color="inherit" className="rating-heading">
