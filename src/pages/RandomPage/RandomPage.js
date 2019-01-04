@@ -32,11 +32,11 @@ class RandomPage extends React.Component {
   }
 
   async fetchMovieEstimate() {
-    const response = await fetch(API_DE_MOVIES + 'genre_numbers');
+    const response = await fetch(API_DE_MOVIES + 'genreNumbers');
     const estimate = await response.json();
 
     this.setState({
-      genre_numbers: estimate
+      genreNumbers: estimate
     });
   }
 

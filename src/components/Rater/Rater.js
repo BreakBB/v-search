@@ -13,9 +13,9 @@ import {authStore} from "../../stores";
 class Rater extends React.Component {
 
   state = {
-    genre_numbers: [],
+    genreNumbers: [],
     randomMovie: null,
-    error_combination: false
+    errorCombination: false
   };
 
   componentDidMount() {
@@ -37,10 +37,10 @@ class Rater extends React.Component {
   }
 
   async getRandomEntry() {
-    const genre_numbers = this.state.genre_numbers;
+    const genre_numbers = this.state.genreNumbers;
     if (genre_numbers.length === 0) {
       this.setState({
-        error_combination: true
+        errorCombination: true
       });
       return;
     }
@@ -52,34 +52,48 @@ class Rater extends React.Component {
 
     this.setState({
       randomMovie: randomMovie,
-      error_combination: false
+      errorCombination: false
     })
   }
 
   async fetchGenreNumbers() {
-    const response = await fetch(API_DE_GENRES + this.props.genre + '/numbers/' + this.props.type);
+    const response = await fetch(
+      API_DE_GENRES + this.props.genre + '/numbers/' + this.props.type, {
+        'method': 'get',
+        'headers': {
+          'User-Id': authStore.userId
+        }
+      });
     const genreNumbers = await response.json();
 
     this.setState({
-      genre_numbers: genreNumbers
+      genreNumbers: genreNumbers
     });
   }
 
   handleVote = async (voteUp) => {
-    const voteAddress = (voteUp ? '/vote-up/' : '/vote-down/');
+    const voteAddress = (voteUp ? 'vote-up/' : 'vote-down/');
 
     const response = await fetch(
-      API_DE_MOVIES + this.state.randomMovie.movie_id + voteAddress, {
+      API_DE_MOVIES + voteAddress, {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'
         },
-        'body': JSON.stringify({'userId': authStore.userId})
+        'body': JSON.stringify({
+          'userId': authStore.userId,
+          'movieId': this.state.randomMovie.movie_id
+        })
       });
 
-    console.log(response.statusText);
-
     if (response.status === 200) {
+      // Remove the number which was just voted to prevent double votes
+      this.setState({
+        genreNumbers: this.state.genreNumbers.filter((number) => {
+          return number !== this.state.randomMovie.number
+        })
+      });
+
       this.getRandomEntry();
     }
   };
@@ -91,7 +105,7 @@ class Rater extends React.Component {
   render() {
     let movieItem = null;
 
-    if (this.state.error_combination) {
+    if (this.state.errorCombination) {
       movieItem = (
         <div className="movie-item">
           <Typography align="center" variant="h6" color="inherit">
