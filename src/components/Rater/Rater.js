@@ -8,6 +8,7 @@ import './Rater.css'
 import {API_DE_GENRES, API_DE_MOVIES} from "../../app-config";
 import {arrayBufferToBase64, getRandomElement} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
+import {authStore} from "../../stores";
 
 class Rater extends React.Component {
 
@@ -64,12 +65,23 @@ class Rater extends React.Component {
     });
   }
 
-  handleUpVote = () => {
+  handleVote = async (voteUp) => {
+    const voteAddress = (voteUp ? '/vote-up/' : '/vote-down/');
 
-  };
+    const response = await fetch(
+      API_DE_MOVIES + this.state.randomMovie.movie_id + voteAddress, {
+        'method': 'post',
+        'headers': {
+          'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify({'userId': authStore.userId})
+      });
 
-  handleDownVote = () => {
+    console.log(response.statusText);
 
+    if (response.status === 200) {
+      this.getRandomEntry();
+    }
   };
 
   handleNoVote = () => {
@@ -126,7 +138,7 @@ class Rater extends React.Component {
             id="btnVoteUp"
             variant="contained"
             color="secondary"
-            onClick={this.handleUpVote}
+            onClick={() => this.handleVote(true)}
           >
             <ThumpUpIcon/>
           </Button>
@@ -135,7 +147,7 @@ class Rater extends React.Component {
             id="btnVoteDown"
             variant="contained"
             color="secondary"
-            onClick={this.handleDownVote}
+            onClick={() => this.handleVote(false)}
           >
             <ThumpDownIcon/>
           </Button>
