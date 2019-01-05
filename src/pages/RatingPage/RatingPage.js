@@ -8,7 +8,7 @@ import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
 import Radio from "@material-ui/core/es/Radio/Radio";
 import './RatingPage.css';
-import {GenreSelection, Rater} from "../../components";
+import {EstimateDisplay, GenreSelection, Rater} from "../../components";
 
 class RatingPage extends React.Component {
 
@@ -59,6 +59,7 @@ class RatingPage extends React.Component {
         <Typography align="center" variant="h5" color="inherit" className="rating-heading">
           Bewerten
         </Typography>
+        <EstimateDisplay label="Bewerten"/>
         <FormControl component="fieldset">
           <RadioGroup
             row

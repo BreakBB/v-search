@@ -1,3 +1,4 @@
+export {default as EstimateDisplay} from './EstimateDisplay/EstimateDisplay'
 export {default as FilterButton} from './FilterButton/FilterButton'
 export {default as FilterSelection} from './FilterSelection/FilterSelection'
 export {default as GenreItem} from './GenreItem/GenreItem'

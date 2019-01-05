@@ -1,13 +1,12 @@
 import React from 'react';
 import {configStore, dataStore} from '../../stores';
 import {observer} from 'mobx-react';
-import {FilterButton, FilterSelection, GenreSelection, ResultTable, SearchBar} from '../../components';
+import {EstimateDisplay, FilterButton, FilterSelection, GenreSelection, ResultTable, SearchBar} from '../../components';
 import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS, FSK} from "../../components/FilterButton/constants";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
 import {API_DE_MOVIES} from "../../app-config";
-import Typography from "@material-ui/core/es/Typography/Typography";
 
 class HomePage extends React.Component {
 
@@ -27,19 +26,6 @@ class HomePage extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', HomePage.handleWindowResize);
-  }
-
-  componentDidMount() {
-    this.fetchMovieEstimate();
-  }
-
-  async fetchMovieEstimate() {
-    const response = await fetch(API_DE_MOVIES + 'estimate');
-    const estimate = await response.json();
-
-    this.setState({
-      estimate: estimate
-    });
   }
 
   onSearchClick = async () => {
@@ -75,7 +61,7 @@ class HomePage extends React.Component {
     return (
       <Paper className="Home-Page">
         <SearchBar onSearchClick={this.onSearchClick}/>
-        <Typography variant="h6">Durchsuchen Sie {this.state.estimate} Filme und Serien</Typography>
+        <EstimateDisplay label="Durchsuchen"/>
         <FilterSelection isMobile={configStore.isMobile}>
           <FormGroup row className="form-group">
             <FormControlLabel
