@@ -1,5 +1,5 @@
 import React from 'react';
-import {API_DE_MOVIES, BACKEND_ADDRESS} from "../../app-config";
+import {API_DE_MOVIES} from "../../app-config";
 import {arrayBufferToBase64, getRandomInt} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import Typography from "@material-ui/core/es/Typography/Typography";

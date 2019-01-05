@@ -7,12 +7,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS, FSK} from "../../components/FilterButton/constants";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
 import {API_DE_MOVIES} from "../../app-config";
+import Typography from "@material-ui/core/es/Typography/Typography";
 
 class HomePage extends React.Component {
 
   state = {
     showProgressbar: false,
-    data: []
+    data: [],
+    estimate: 0
   };
 
   static handleWindowResize() {
@@ -25,6 +27,19 @@ class HomePage extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', HomePage.handleWindowResize);
+  }
+
+  componentDidMount() {
+    this.fetchMovieEstimate();
+  }
+
+  async fetchMovieEstimate() {
+    const response = await fetch(API_DE_MOVIES + 'estimate');
+    const estimate = await response.json();
+
+    this.setState({
+      estimate: estimate
+    });
   }
 
   onSearchClick = async () => {
@@ -60,6 +75,7 @@ class HomePage extends React.Component {
     return (
       <Paper className="Home-Page">
         <SearchBar onSearchClick={this.onSearchClick}/>
+        <Typography variant="h6">Durchsuchen Sie {this.state.estimate} Filme und Serien</Typography>
         <FilterSelection isMobile={configStore.isMobile}>
           <FormGroup row className="form-group">
             <FormControlLabel
