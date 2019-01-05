@@ -64,6 +64,12 @@ class LoginButton extends React.Component {
     authStore.logout();
   };
 
+  handleEnterKey = event => {
+    if (event.type === "keydown" && event.key === "Enter") {
+      this.handleLogin();
+    }
+  };
+
   render() {
     if (authStore.isLoggedIn) {
       return (
@@ -91,6 +97,7 @@ class LoginButton extends React.Component {
               label="Nutzername"
               type="text"
               required
+              onKeyDown={this.handleEnterKey}
               onChange={(e) => this.setState({userName: e.target.value})}
             />
             <TextField
@@ -99,6 +106,7 @@ class LoginButton extends React.Component {
               label="Passwort"
               type="password"
               required
+              onKeyDown={this.handleEnterKey}
               onChange={(e) => this.setState({password: e.target.value})}
             />
             {
