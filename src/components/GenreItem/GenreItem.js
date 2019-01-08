@@ -38,7 +38,7 @@ class GenreItem extends React.Component {
       <FormControlLabel
         control={
           <Checkbox
-            checked={this.state.selected}
+            checked={this.props.selected}
             onChange={this.handleChange}
             color="primary"
           />
@@ -53,7 +53,8 @@ class GenreItem extends React.Component {
 GenreItem.propTypes = {
   label: PropTypes.string.isRequired,
   handleSelection: PropTypes.func,
-  radioButton: PropTypes.bool
+  radioButton: PropTypes.bool,
+  selected: PropTypes.bool
 };
 
 export default GenreItem;

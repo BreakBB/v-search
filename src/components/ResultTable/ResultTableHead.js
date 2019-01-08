@@ -5,12 +5,11 @@ import {TableCell, TableHead, TableRow, TableSortLabel, Tooltip} from "@material
 const rows = [
   {id: 'poster', numeric: false, disablePadding: true, label: ''},
   {id: 'title', numeric: false, disablePadding: false, label: 'Titel'},
-  {id: 'rating', numeric: true, disablePadding: false, label: 'Bewertung (1.0 - 5.0)'},
-  {id: 'imdb', numeric: true, disablePadding: false, label: 'IMDb (1.0 - 10.0)'},
+  {id: 'star_rating', numeric: true, disablePadding: false, label: 'Bewertung (1.0 - 5.0)'},
+  {id: 'imdb_rating', numeric: true, disablePadding: false, label: 'IMDb (1.0 - 10.0)'},
   {id: 'year', numeric: true, disablePadding: false, label: 'Jahr'},
   {id: 'genres', numeric: false, disablePadding: false, label: 'Genres'},
-  {id: 'movie_type', numeric: false, disablePadding: false, label: 'Typ'},
-  {id: 'fsk', numeric: false, disablePadding: false, label: 'FSK'},
+  {id: 'maturity_rating', numeric: false, disablePadding: false, label: 'FSK'},
 ];
 
 class ResultTableHead extends React.Component {

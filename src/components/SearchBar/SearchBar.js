@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {observer} from 'mobx-react';
 import {TextField, Button} from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
-import {dataStore} from '../../stores';
+import dataStore from '../../stores/DataStore';
 import './SearchBar.css';
 
 class SearchBar extends React.Component {

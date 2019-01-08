@@ -5,7 +5,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GenreItem from '../GenreItem/GenreItem';
 import './GenreSelection.css'
-import {configStore, dataStore} from "../../stores";
+import configStore from "../../stores/ConfigStore";
+import dataStore from "../../stores/DataStore";
 import {
   ExpansionPanel,
   ExpansionPanelDetails,
@@ -13,7 +14,6 @@ import {
   Toolbar,
   Typography
 } from "@material-ui/core/es/index";
-import {API_DE_GENRES} from "../../app-config";
 import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
 import FormControl from "@material-ui/core/es/FormControl/FormControl";
 
@@ -25,21 +25,36 @@ class GenreSelection extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchGenres();
+    this.fetchGenres().then((genres) => {
+      this.setState({
+        genres: genres
+      });
+    });
   }
 
-  async fetchGenres() {
-    const response = await fetch(API_DE_GENRES);
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.genresURL !== prevProps.genresURL) {
+      dataStore.setGenres([]);
+
+      this.fetchGenres().then((genres) => {
+        this.setState({
+          genres: genres,
+          selection: null
+        });
+      });
+    }
+  }
+
+  fetchGenres = async () => {
+    const response = await fetch(this.props.genresURL);
     let genres = await response.json();
 
     genres = genres.sort();
 
-    this.setState({
-      genres: genres
-    });
-  }
+    return genres;
+  };
 
-  handleSelections = genreTitle => {
+  handleSelections = (genreTitle) => {
     let genres = dataStore.genres;
 
     if (genres === null) {
@@ -109,7 +124,9 @@ class GenreSelection extends React.Component {
         <FormGroup row className="genre-wrapper">
           {
             this.state.genres.map(genre => (
-              <GenreItem key={genre} label={genre} handleSelection={this.handleSelections}/>
+              <GenreItem key={genre} label={genre}
+                         selected={dataStore.genres != null && dataStore.genres.includes(genre)}
+                         handleSelection={this.handleSelections}/>
             ))
           }
         </FormGroup>
@@ -141,6 +158,7 @@ class GenreSelection extends React.Component {
 }
 
 GenreSelection.propTypes = {
+  genresURL: PropTypes.string.isRequired,
   radioGroup: PropTypes.bool,
   onChange: PropTypes.func
 };

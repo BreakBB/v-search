@@ -1,12 +1,12 @@
 import React from 'react';
-import {configStore, dataStore} from '../../stores';
 import {observer} from 'mobx-react';
 import {EstimateDisplay, FilterButton, FilterSelection, GenreSelection, ResultTable, SearchBar} from '../../components';
 import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS, FSK} from "../../components/FilterButton/constants";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
-import {API_DE_MOVIES} from "../../app-config";
+import configStore from '../../stores/ConfigStore';
+import dataStore from "../../stores/DataStore";
 
 class HomePage extends React.Component {
 
@@ -32,7 +32,7 @@ class HomePage extends React.Component {
     this.setState({showProgressbar: true});
 
     const response = await fetch(
-      API_DE_MOVIES, {
+      configStore.API_MOVIES, {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ class HomePage extends React.Component {
     return (
       <Paper className="Home-Page">
         <SearchBar onSearchClick={this.onSearchClick}/>
-        <EstimateDisplay label="Durchsuchen"/>
+        <EstimateDisplay label="Durchsuchen" moviesURL={configStore.API_MOVIES}/>
         <FilterSelection isMobile={configStore.isMobile}>
           <FormGroup row className="form-group">
             <FormControlLabel
@@ -78,12 +78,12 @@ class HomePage extends React.Component {
             />
           </FormGroup>
           <br/>
-          <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setRating(v)}/>
-          <FilterButton title="IMDb" number dataStoreAction={v => dataStore.setIMDb(v)}/>
+          <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setStarRating(v)}/>
+          <FilterButton title="IMDb" number dataStoreAction={v => dataStore.setIMDbRating(v)}/>
           <FilterButton title="Jahr" number dataStoreAction={v => dataStore.setYear(v)}/>
-          <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setFSK(v)}/>
+          <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setMaturityRating(v)}/>
         </FilterSelection>
-        <GenreSelection/>
+        <GenreSelection genresURL={configStore.API_GENRES}/>
         {
           this.state.showProgressbar
             ?

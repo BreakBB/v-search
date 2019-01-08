@@ -14,9 +14,12 @@ console.log("Backend location is: ", BACKEND_ADDRESS);
 export const API_LOGIN = BACKEND_ADDRESS + 'api/login/';
 
 const API_DE = BACKEND_ADDRESS + 'api/de/';
-export const API_DE_MOVIES = API_DE + 'movies/';
-export const API_DE_GENRES = API_DE + 'genres/';
-
 const API_COM = BACKEND_ADDRESS + 'api/com/';
-export const API_COM_MOVIES = API_COM + 'movies/';
-export const API_COM_GENRES = API_COM + 'genres/';
+const MOVIES = 'movies/';
+const GENRES = 'genres/';
+
+export const API_DE_MOVIES = API_DE + MOVIES;
+export const API_DE_GENRES = API_DE + GENRES;
+
+export const API_COM_MOVIES = API_COM + MOVIES;
+export const API_COM_GENRES = API_COM + GENRES;

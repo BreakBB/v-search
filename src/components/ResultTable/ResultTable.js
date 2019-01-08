@@ -105,12 +105,11 @@ class ResultTable extends React.Component {
                       <TableCell align="right">
                         {n.title}
                       </TableCell>
-                      <TableCell align="right">{n.rating}</TableCell>
-                      <TableCell align="right">{n.imdb}</TableCell>
+                      <TableCell align="right">{n.star_rating}</TableCell>
+                      <TableCell align="right">{n.imdb_rating}</TableCell>
                       <TableCell align="right">{n.year}</TableCell>
                       <TableCell align="right">{n.genres.join(', ')}</TableCell>
-                      <TableCell align="right">{n.movie_type}</TableCell>
-                      <TableCell align="right">{n.fsk}</TableCell>
+                      <TableCell align="right">{n.maturity_rating}</TableCell>
                     </TableRow>
                   );
                 })}

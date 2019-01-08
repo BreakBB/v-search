@@ -8,7 +8,7 @@ import DialogContent from "@material-ui/core/es/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/es/DialogContentText/DialogContentText";
 import TextField from "@material-ui/core/es/TextField/TextField";
 import DialogActions from "@material-ui/core/es/DialogActions/DialogActions";
-import {authStore} from "../../stores"
+import authStore from "../../stores/AuthStore"
 import {API_LOGIN} from "../../app-config";
 
 class LoginButton extends React.Component {

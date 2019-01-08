@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {API_DE_MOVIES} from "../../app-config";
 import Typography from "@material-ui/core/es/Typography/Typography";
 
 class EstimateDisplay extends React.Component {
@@ -10,16 +9,26 @@ class EstimateDisplay extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchMovieEstimate();
+    this.fetchMovieEstimate().then((estimate) => {
+      this.setState({
+        estimate: estimate
+      });
+    })
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.moviesURL !== prevProps.moviesURL) {
+      this.fetchMovieEstimate().then((estimate) => {
+        this.setState({
+          estimate: estimate
+        });
+      });
+    }
   }
 
   async fetchMovieEstimate() {
-    const response = await fetch(API_DE_MOVIES + 'estimate');
-    const estimate = await response.json();
-
-    this.setState({
-      estimate: estimate
-    });
+    const response = await fetch(this.props.moviesURL + 'estimate');
+    return await response.json();
   }
 
   render() {
@@ -30,7 +39,8 @@ class EstimateDisplay extends React.Component {
 }
 
 EstimateDisplay.propTypes = {
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  moviesURL: PropTypes.string.isRequired
 };
 
 export default EstimateDisplay;

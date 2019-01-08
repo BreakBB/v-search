@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import LoginButton from "../LoginButton/LoginButton";
 import MenuDrawer from "../MenuDrawer/MenuDrawer";
 import './HeaderAppBar.css'
+import LanguagePicker from "../LanguagePicker/LanguagePicker";
 
 class HeaderAppBar extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class HeaderAppBar extends React.Component {
           <Typography variant="h6" color="inherit" className="grow">
             {this.props.title}
           </Typography>
+          <LanguagePicker/>
           <LoginButton/>
         </Toolbar>
       </AppBar>

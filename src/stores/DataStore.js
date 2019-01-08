@@ -1,27 +1,12 @@
-import {observable, decorate, action} from 'mobx';
-
-export const authStore = observable({
-  isLoggedIn: false,
-  userId: null,
-  login: action((userId) => {
-    authStore.isLoggedIn = true;
-    authStore.userId = userId;
-  }),
-  logout: action(() => authStore.isLoggedIn = false),
-});
-
-export const configStore = observable({
-  isMobile: window.innerWidth <= 600,
-  setMobile: action((newVal) => configStore.isMobile = newVal)
-});
+import {action, decorate, observable} from "mobx";
 
 class DataStore {
   title = null;
-  rating = null;
-  imdb = null;
+  star_rating = null;
+  imdb_rating = null;
   year = null;
   genres = null;
-  fsk = null;
+  maturity_rating = null;
   movies = true;
   series = true;
 
@@ -29,12 +14,12 @@ class DataStore {
     this.title = title;
   }
 
-  setRating(rating) {
-    this.rating = rating;
+  setStarRating(rating) {
+    this.star_rating = rating;
   }
 
-  setIMDb(imdb) {
-    this.imdb = imdb;
+  setIMDbRating(imdb) {
+    this.imdb_rating = imdb;
   }
 
   setYear(year) {
@@ -45,8 +30,8 @@ class DataStore {
     this.genres = genres;
   }
 
-  setFSK(fsk) {
-    this.fsk = fsk;
+  setMaturityRating(fsk) {
+    this.maturity_rating = fsk;
   }
 
   setMovies(movies) {
@@ -77,4 +62,5 @@ decorate(DataStore, {
   setSeries: action,
 });
 
-export const dataStore = new DataStore();
+const dataStore = new DataStore();
+export default dataStore;

@@ -1,5 +1,6 @@
 import React from 'react';
-import {authStore, configStore} from '../../stores';
+import authStore from '../../stores/AuthStore';
+import configStore from '../../stores/ConfigStore'
 import {observer} from 'mobx-react';
 import {Paper} from "@material-ui/core/es/index";
 import Typography from "@material-ui/core/es/Typography/Typography";
@@ -13,7 +14,7 @@ import {EstimateDisplay, GenreSelection, Rater} from "../../components";
 class RatingPage extends React.Component {
 
   state = {
-    type: "movies",
+    type: "movie",
     selection: null
   };
 
@@ -27,9 +28,6 @@ class RatingPage extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', RatingPage.handleWindowResize);
-  }
-
-  componentDidMount() {
   }
 
   handleTypeChange = (event) => {
@@ -59,7 +57,7 @@ class RatingPage extends React.Component {
         <Typography align="center" variant="h5" color="inherit" className="rating-heading">
           Bewerten
         </Typography>
-        <EstimateDisplay label="Bewerten"/>
+        <EstimateDisplay label="Bewerten" moviesURL={configStore.API_MOVIES}/>
         <FormControl component="fieldset">
           <RadioGroup
             row
@@ -67,11 +65,11 @@ class RatingPage extends React.Component {
             value={this.state.type}
             onChange={this.handleTypeChange}
           >
-            <FormControlLabel value="movies" control={<Radio/>} label="Filme"/>
+            <FormControlLabel value="movie" control={<Radio/>} label="Filme"/>
             <FormControlLabel value="series" control={<Radio/>} label="Serien"/>
           </RadioGroup>
         </FormControl>
-        <GenreSelection radioGroup onChange={this.handleGenreChange}/>
+        <GenreSelection radioGroup onChange={this.handleGenreChange} genresURL={configStore.API_GENRES}/>
         {
           this.state.selection ?
             <Rater type={this.state.type} genre={this.state.selection}/>

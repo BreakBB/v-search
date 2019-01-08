@@ -6,10 +6,10 @@ import ThumpUpIcon from '@material-ui/icons/ThumbUp';
 import ThumpDownIcon from '@material-ui/icons/ThumbDown';
 import Typography from "@material-ui/core/es/Typography/Typography";
 import './Rater.css'
-import {API_DE_GENRES, API_DE_MOVIES} from "../../app-config";
 import {arrayBufferToBase64, getRandomElement} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
-import {authStore} from "../../stores";
+import authStore from "../../stores/AuthStore";
+import configStore from "../../stores/ConfigStore";
 
 class Rater extends React.Component {
 
@@ -48,7 +48,7 @@ class Rater extends React.Component {
 
     const randomNumber = getRandomElement(genre_numbers);
 
-    const response = await fetch(API_DE_MOVIES + randomNumber);
+    const response = await fetch(configStore.API_MOVIES + randomNumber);
     const randomMovie = await response.json();
 
     this.setState({
@@ -59,7 +59,7 @@ class Rater extends React.Component {
 
   async fetchGenreNumbers() {
     const response = await fetch(
-      API_DE_GENRES + this.props.genre + '/numbers/' + this.props.type, {
+      configStore.API_GENRES + this.props.genre + '/numbers/' + this.props.type, {
         'method': 'get',
         'headers': {
           'User-Id': authStore.userId
@@ -76,7 +76,7 @@ class Rater extends React.Component {
     const voteAddress = (voteUp ? 'vote-up/' : 'vote-down/');
 
     const response = await fetch(
-      API_DE_MOVIES + voteAddress, {
+      configStore.API_MOVIES + voteAddress, {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'
@@ -127,7 +127,7 @@ class Rater extends React.Component {
               this.state.randomMovie.title
             }
           </Typography>
-          <img className="movie-poster"
+          <img className="movie-poster pointer"
                src={'data:image/jpeg;base64,' + arrayBufferToBase64(this.state.randomMovie.poster.data)} alt="None"
           />
         </div>
