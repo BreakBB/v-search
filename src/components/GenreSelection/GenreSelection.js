@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import {observer} from 'mobx-react';
 import FormGroup from '@material-ui/core/FormGroup';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GenreItem from '../GenreItem/GenreItem';
@@ -144,4 +145,4 @@ GenreSelection.propTypes = {
   onChange: PropTypes.func
 };
 
-export default GenreSelection;
+export default observer(GenreSelection);

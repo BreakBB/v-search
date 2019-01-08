@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import {observer} from 'mobx-react';
 import Button from "@material-ui/core/es/Button/Button";
 import ThumpUpIcon from '@material-ui/icons/ThumbUp';
 import ThumpDownIcon from '@material-ui/icons/ThumbDown';
@@ -185,4 +186,4 @@ Rater.propTypes = {
   genre: PropTypes.string.isRequired
 };
 
-export default Rater;
+export default observer(Rater);

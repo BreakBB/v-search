@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {observer} from 'mobx-react';
 import {TextField, Button} from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import {dataStore} from '../../stores';
@@ -52,4 +53,4 @@ SearchBar.propTypes = {
   onSearchClick: PropTypes.func.isRequired
 };
 
-export default SearchBar;
+export default observer(SearchBar);
