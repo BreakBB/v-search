@@ -111,7 +111,7 @@ class Rater extends React.Component {
         <div className="movie-item">
           <Typography align="center" variant="h6" color="inherit">
             {
-              this.props.type === "movies" ?
+              this.props.type === "movie" ?
                 "Keinen Film zu dem Genre \"" + this.props.genre + "\" gefunden."
                 : "Keine Serie zu dem Genre \"" + this.props.genre + "\" gefunden."
             }
