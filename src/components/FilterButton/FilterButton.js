@@ -6,21 +6,18 @@ import './FilterButton.css'
 class FilterButton extends React.Component {
 
   state = {
-    selection: '',
-    error: false
+    selection: ''
   };
 
   handleChange = event => {
-    const value = event.target.value;
-    let error = false;
+    let value = event.target.value;
 
     if (this.props.number && value === "") {
-      error = true;
+      value = 0;
     }
 
     this.setState({
-      selection: value,
-      error: error
+      selection: value
     });
     this.props.dataStoreAction(value);
   };
@@ -47,7 +44,6 @@ class FilterButton extends React.Component {
     return (
       <TextField
         select={!this.props.number}
-        error={this.state.error}
         type={this.props.number ? "number" : "select"}
         className="filter-button"
         label={this.props.title}
