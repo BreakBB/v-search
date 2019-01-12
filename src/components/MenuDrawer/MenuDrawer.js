@@ -4,6 +4,8 @@ import IconButton from "@material-ui/core/es/IconButton/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
 import RatingIcon from '@material-ui/icons/ThumbsUpDown';
 import HomeIcon from '@material-ui/icons/Home';
+import ShuffleIcon from '@material-ui/icons/Shuffle';
+import StarIcon from '@material-ui/icons/Star';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import List from "@material-ui/core/es/List/List";
 import ListItem from "@material-ui/core/es/ListItem/ListItem";
@@ -29,6 +31,18 @@ class MenuDrawer extends React.Component {
             <RatingIcon/>
           </ListItemIcon>
           <ListItemText primary={'Bewerten'}/>
+        </ListItem>
+        <ListItem button key={'random'} onClick={() => this.props.history.push("/random")}>
+          <ListItemIcon>
+            <ShuffleIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Zufällig'}/>
+        </ListItem>
+        <ListItem button key={'recom'} onClick={() => this.props.history.push("/recom")}>
+          <ListItemIcon>
+            <StarIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Empfehlungen'}/>
         </ListItem>
       </List>
     );

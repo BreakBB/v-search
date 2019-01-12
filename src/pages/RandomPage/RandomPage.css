@@ -1,0 +1,21 @@
+img.poster {
+  height: 100px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.movie-item {
+  margin-right: 5vw;
+  margin-left: 5vw;
+  margin-bottom: 5vh;
+}
+
+.btn-no-vote {
+  display: inline-flex;
+  align-items: center;
+}
+
+.pointer {
+  cursor: pointer;
+}

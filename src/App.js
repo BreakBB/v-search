@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {HomePage, RatingPage} from './pages';
+import {HomePage, RatingPage, RandomPage, RecomPage} from './pages';
 import {observer} from 'mobx-react';
-import {HOME_PATH, RATING_PATH} from './app-config';
+import {HOME_PATH, RANDOM_PATH, RATING_PATH, RECOM_PATH} from './app-config';
 import './App.css';
 import {HeaderAppBar} from "./components/";
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
@@ -31,6 +31,8 @@ class App extends Component {
             <Switch exact>
               <Route exact path={HOME_PATH} component={HomePage}/>
               <Route exact path={RATING_PATH} component={RatingPage}/>
+              <Route exact path={RANDOM_PATH} component={RandomPage}/>
+              <Route exact path={RECOM_PATH} component={RecomPage}/>
               {this.props.children}
             </Switch>
           </MuiThemeProvider>

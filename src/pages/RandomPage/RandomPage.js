@@ -1,8 +1,11 @@
 import React from 'react';
-import {API_DE_MOVIES} from "../../app-config";
 import {arrayBufferToBase64, getRandomInt} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import Typography from "@material-ui/core/es/Typography/Typography";
+import "./RandomPage.css"
+import authStore from "../../stores/AuthStore";
+import configStore from "../../stores/ConfigStore";
+import Button from "@material-ui/core/es/Button/Button";
 
 
 class RandomPage extends React.Component {
@@ -14,31 +17,38 @@ class RandomPage extends React.Component {
 
   componentDidMount() {
     // Here .then is used instead of async/await since "componentDidMount" is not an async method
-    this.fetchMovieEstimate().then(() => {
-      this.getRandomMovie();
+    this.fetchGenreNumbers().then((estimate) => {
+      this.getRandomMovie(estimate);
     });
   }
 
-  async getRandomMovie() {
-    const estimate = this.state.estimate;
-    const randomNumber = getRandomInt(estimate);
+  getRandomMovie = async (estimate) => {
+    if (estimate > 0) {
+      const randomNumber = getRandomInt(estimate);
 
-    const response = await fetch(API_DE_MOVIES + randomNumber);
-    const randomMovie = await response.json();
+      const response = await fetch(configStore.API_MOVIES + randomNumber, {
+        'method': 'get',
+        'headers': {
+          'User-Id': authStore.userId
+        }
+      });
+      const randomMovie = await response.json();
 
-    this.setState({
-      randomMovie: randomMovie
-    })
-  }
+      this.setState({
+        randomMovie: randomMovie,
+        estimate: estimate
+      });
+    }
+  };
 
-  async fetchMovieEstimate() {
-    const response = await fetch(API_DE_MOVIES + 'genreNumbers');
-    const estimate = await response.json();
+  fetchGenreNumbers = async () => {
+    const response = await fetch(configStore.API_MOVIES + 'estimate');
+    return await response.json();
+  };
 
-    this.setState({
-      genreNumbers: estimate
-    });
-  }
+  getNewMovie = () => {
+    this.getRandomMovie(this.state.estimate);
+  };
 
   render() {
     if (this.state.randomMovie) {
@@ -49,9 +59,17 @@ class RandomPage extends React.Component {
               this.state.randomMovie.title
             }
           </Typography>
-          <img className="poster"
+          <img className="poster pointer" onClick={() => window.open(this.state.randomMovie.url, "_blank")}
                src={'data:image/jpeg;base64,' + arrayBufferToBase64(this.state.randomMovie.poster.data)} alt="None"
           />
+          <Button
+            id="btnNoVote"
+            variant="contained"
+            color="secondary"
+            className="btn-no-vote"
+            onClick={this.getNewMovie}>
+            Neue/r Serie/Film
+          </Button>
         </div>
       );
     }
