@@ -10,6 +10,7 @@ const rows = [
   {id: 'year', numeric: true, disablePadding: false, label: 'Jahr'},
   {id: 'genres', numeric: false, disablePadding: false, label: 'Genres'},
   {id: 'maturity_rating', numeric: false, disablePadding: false, label: 'FSK'},
+  {id: 'vote', numeric: false, disablePadding: false, label: ''}
 ];
 
 class ResultTableHead extends React.Component {

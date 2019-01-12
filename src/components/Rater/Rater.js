@@ -2,21 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import {observer} from 'mobx-react';
 import Button from "@material-ui/core/es/Button/Button";
-import ThumpUpIcon from '@material-ui/icons/ThumbUp';
-import ThumpDownIcon from '@material-ui/icons/ThumbDown';
 import Typography from "@material-ui/core/es/Typography/Typography";
 import './Rater.css'
 import {arrayBufferToBase64, getRandomElement} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import authStore from "../../stores/AuthStore";
 import configStore from "../../stores/ConfigStore";
+import VoteButton from "../VoteButton/VoteButton";
 
 class Rater extends React.Component {
 
   state = {
     genreNumbers: [],
     randomMovie: null,
-    errorCombination: false
+    outOfMovies: false
   };
 
   componentDidMount() {
@@ -36,23 +35,35 @@ class Rater extends React.Component {
     }
   }
 
-  processRandomMovie(movie) {
+  processRandomMovie = (movie) => {
     if (movie === true) {
+      console.log("Error while getting new movie");
       this.setState({
-        errorCombination: true
+        outOfMovies: true
       });
       return;
     }
 
     console.log("Found random movie");
 
-    this.setState({
-      randomMovie: movie,
-      errorCombination: false
-    });
-  }
+    if (this.state.randomMovie) {
+      this.setState({
+        randomMovie: movie,
+        genreNumbers: this.state.genreNumbers.filter((number) => {
+          return number !== this.state.randomMovie.number
+        }),
+        outOfMovies: false
+      });
+    }
+    else {
+      // First time called from componentDidMount
+      this.setState({
+        randomMovie: movie
+      });
+    }
+  };
 
-  async getRandomEntry() {
+  getRandomEntry = async () => {
     const genre_numbers = this.state.genreNumbers;
     if (genre_numbers.length === 0) {
       return true;
@@ -61,10 +72,13 @@ class Rater extends React.Component {
     const randomNumber = getRandomElement(genre_numbers);
 
     const response = await fetch(configStore.API_MOVIES + randomNumber);
-    return await response.json();
-  }
+    if (response.status === 200) {
+      return await response.json();
+    }
+    return true;
+  };
 
-  async fetchGenreNumbers() {
+  fetchGenreNumbers = async () => {
     const response = await fetch(
       configStore.API_GENRES + this.props.genre + '/numbers/' + this.props.type, {
         'method': 'get',
@@ -77,7 +91,7 @@ class Rater extends React.Component {
     this.setState({
       genreNumbers: genreNumbers
     });
-  }
+  };
 
   handleVote = async (voteUp) => {
     const voteAddress = (voteUp ? 'vote-up/' : 'vote-down/');
@@ -97,23 +111,20 @@ class Rater extends React.Component {
     if (response.status === 200) {
       // Remove the number which was just voted to prevent double votes
       this.setState({
-        genreNumbers: this.state.genreNumbers.filter((number) => {
-          return number !== this.state.randomMovie.number
-        })
       });
 
-      this.getRandomEntry();
+      this.processRandomMovie(await this.getRandomEntry());
     }
   };
 
-  handleNoVote = () => {
-    this.getRandomEntry();
+  handleNoVote = async () => {
+    this.processRandomMovie(await this.getRandomEntry());
   };
 
   render() {
     let movieItem = null;
 
-    if (this.state.errorCombination) {
+    if (this.state.outOfMovies) {
       movieItem = (
         <div className="movie-item">
           <Typography align="center" variant="h6" color="inherit">
@@ -127,16 +138,25 @@ class Rater extends React.Component {
       );
     }
     else if (this.state.randomMovie) {
+      console.log("MOVIE:", this.state.randomMovie);
+      const movieId = this.state.randomMovie.movie_id;
+
       movieItem = (
-        <div className="movie-item" onClick={() => window.open(this.state.randomMovie.url, "_blank")}>
-          <Typography align="center" variant="h6" color="inherit">
-            {
-              this.state.randomMovie.title
-            }
-          </Typography>
-          <img className="movie-poster pointer"
-               src={'data:image/jpeg;base64,' + arrayBufferToBase64(this.state.randomMovie.poster.data)} alt="None"
-          />
+        <div className="rater-wrapper">
+          <VoteButton upVote={true} movieId={movieId}
+                      onVote={async () => this.processRandomMovie(await this.getRandomEntry())}/>
+          <div className="movie-item">
+            <Typography align="center" variant="h6" color="inherit">
+              {
+                this.state.randomMovie.title
+              }
+            </Typography>
+            <img className="movie-poster pointer" onClick={() => window.open(this.state.randomMovie.url, "_blank")}
+                 src={'data:image/jpeg;base64,' + arrayBufferToBase64(this.state.randomMovie.poster.data)} alt="None"
+            />
+          </div>
+          <VoteButton upVote={false} movieId={movieId}
+                      onVote={async () => this.processRandomMovie(await this.getRandomEntry())}/>
         </div>
       );
     }
@@ -155,25 +175,7 @@ class Rater extends React.Component {
               : "Bitte bewerte diese Serie"
           }
         </Typography>
-        <div className="rater-wrapper">
-          <Button
-            id="btnVoteUp"
-            variant="contained"
-            color="secondary"
-            onClick={() => this.handleVote(true)}
-          >
-            <ThumpUpIcon/>
-          </Button>
-          {movieItem}
-          <Button
-            id="btnVoteDown"
-            variant="contained"
-            color="secondary"
-            onClick={() => this.handleVote(false)}
-          >
-            <ThumpDownIcon/>
-          </Button>
-        </div>
+        {movieItem}
         <br/>
         <Button
           id="btnNoVote"
