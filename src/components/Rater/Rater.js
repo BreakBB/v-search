@@ -21,8 +21,8 @@ class Rater extends React.Component {
 
   componentDidMount() {
     // Here .then is used instead of async/await since "componentDidMount" is not an async method
-    this.fetchGenreNumbers().then(() => {
-      this.getRandomEntry();
+    this.fetchGenreNumbers().then(async () => {
+      this.processRandomMovie(await this.getRandomEntry());
     });
   }
 
@@ -30,31 +30,38 @@ class Rater extends React.Component {
     // Only update if the genre changed
     if (prevProps.genre !== this.props.genre || prevProps.type !== this.props.type) {
       // Here .then is used instead of async/await since "componentDidUpdate" is not an async method
-      this.fetchGenreNumbers().then(() => {
-        this.getRandomEntry();
+      this.fetchGenreNumbers().then(async () => {
+        this.processRandomMovie(await this.getRandomEntry());
       });
-
     }
   }
 
-  async getRandomEntry() {
-    const genre_numbers = this.state.genreNumbers;
-    if (genre_numbers.length === 0) {
+  processRandomMovie(movie) {
+    if (movie === true) {
       this.setState({
         errorCombination: true
       });
       return;
     }
 
+    console.log("Found random movie");
+
+    this.setState({
+      randomMovie: movie,
+      errorCombination: false
+    });
+  }
+
+  async getRandomEntry() {
+    const genre_numbers = this.state.genreNumbers;
+    if (genre_numbers.length === 0) {
+      return true;
+    }
+
     const randomNumber = getRandomElement(genre_numbers);
 
     const response = await fetch(configStore.API_MOVIES + randomNumber);
-    const randomMovie = await response.json();
-
-    this.setState({
-      randomMovie: randomMovie,
-      errorCombination: false
-    })
+    return await response.json();
   }
 
   async fetchGenreNumbers() {
