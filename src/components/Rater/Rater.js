@@ -93,30 +93,6 @@ class Rater extends React.Component {
     });
   };
 
-  handleVote = async (voteUp) => {
-    const voteAddress = (voteUp ? 'vote-up/' : 'vote-down/');
-
-    const response = await fetch(
-      configStore.API_MOVIES + voteAddress, {
-        'method': 'post',
-        'headers': {
-          'Content-Type': 'application/json'
-        },
-        'body': JSON.stringify({
-          'userId': authStore.userId,
-          'movieId': this.state.randomMovie.movie_id
-        })
-      });
-
-    if (response.status === 200) {
-      // Remove the number which was just voted to prevent double votes
-      this.setState({
-      });
-
-      this.processRandomMovie(await this.getRandomEntry());
-    }
-  };
-
   handleNoVote = async () => {
     this.processRandomMovie(await this.getRandomEntry());
   };
