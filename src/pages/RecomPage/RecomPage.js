@@ -12,7 +12,6 @@ class RecomPage extends React.Component {
 
   state = {
     movies: [],
-    showProgressbar: false,
     fetching: false
   };
 
@@ -35,7 +34,7 @@ class RecomPage extends React.Component {
 
         this.setState({
           movies: movies,
-          showProgressbar: false
+          fetching: false
         });
       });
     }
@@ -43,7 +42,6 @@ class RecomPage extends React.Component {
 
   async fetchRecommendations() {
     this.setState({
-      showProgressbar: true,
       fetching: true
     });
 
@@ -65,7 +63,7 @@ class RecomPage extends React.Component {
       );
     }
 
-    if (this.state.showProgressbar) {
+    if (this.state.fetching) {
       return (
         <CircularProgress size={100}/>
       );
