@@ -19,10 +19,16 @@ class DataStore {
   }
 
   setIMDbRating(imdb) {
+    if (imdb === "") {
+      imdb = 0;
+    }
     this.imdb_rating = imdb;
   }
 
   setYear(year) {
+    if (year === "") {
+      year = null;
+    }
     this.year = year;
   }
 

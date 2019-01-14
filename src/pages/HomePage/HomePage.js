@@ -79,8 +79,8 @@ class HomePage extends React.Component {
           </FormGroup>
           <br/>
           <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setStarRating(v)}/>
-          <FilterButton title="IMDb" number dataStoreAction={v => dataStore.setIMDbRating(v)}/>
-          <FilterButton title="Jahr" number dataStoreAction={v => dataStore.setYear(v)}/>
+          <FilterButton title="IMDb" type="number" dataStoreAction={v => dataStore.setIMDbRating(v)}/>
+          <FilterButton title="Jahr" type="date" dataStoreAction={v => dataStore.setYear(v)}/>
           <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setMaturityRating(v)}/>
         </FilterSelection>
         <GenreSelection genresURL={configStore.API_GENRES}/>

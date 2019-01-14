@@ -12,10 +12,6 @@ class FilterButton extends React.Component {
   handleChange = event => {
     let value = event.target.value;
 
-    if (this.props.number && value === "") {
-      value = 0;
-    }
-
     this.setState({
       selection: value
     });
@@ -25,7 +21,7 @@ class FilterButton extends React.Component {
   render() {
     let menuItems = null;
 
-    if (!this.props.number) {
+    if (this.props.type === "select") {
       menuItems = [];
       menuItems.push(
         <MenuItem key="none" value={null}>
@@ -43,8 +39,8 @@ class FilterButton extends React.Component {
 
     return (
       <TextField
-        select={!this.props.number}
-        type={this.props.number ? "number" : "select"}
+        select={this.props.type === "select"}
+        type={this.props.type === "select" ? "select" : "number"}
         className="filter-button"
         label={this.props.title}
         value={this.state.selection}
@@ -60,7 +56,7 @@ FilterButton.propTypes = {
   title: PropTypes.string.isRequired,
   dataStoreAction: PropTypes.func.isRequired,
   children: PropTypes.array,
-  number: PropTypes.bool
+  type: PropTypes.oneOf(["number", "date", "select"])
 };
 
 export default FilterButton;

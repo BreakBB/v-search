@@ -31,6 +31,7 @@ class Rater extends React.Component {
       // Here .then is used instead of async/await since "componentDidUpdate" is not an async method
       this.fetchGenreNumbers().then(async () => {
         this.processRandomMovie(await this.getRandomEntry());
+        return "asd";
       });
     }
   }
