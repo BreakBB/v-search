@@ -16,6 +16,10 @@ class HomePage extends React.Component {
     estimate: 0
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
   static handleWindowResize() {
     configStore.setMobile(window.innerWidth <= 600)
   }
@@ -26,6 +30,7 @@ class HomePage extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', HomePage.handleWindowResize);
+    this.controller.abort();
   }
 
   onSearchClick = async () => {
@@ -33,6 +38,7 @@ class HomePage extends React.Component {
 
     const response = await fetch(
       configStore.API_MOVIES, {
+        'signal': this.controller.signal,
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'

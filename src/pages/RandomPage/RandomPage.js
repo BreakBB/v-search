@@ -15,6 +15,14 @@ class RandomPage extends React.Component {
     randomMovie: null
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
+  componentWillUnmount() {
+    this.controller.abort();
+  }
+
   componentDidMount() {
     // Here .then is used instead of async/await since "componentDidMount" is not an async method
     this.fetchGenreNumbers().then((estimate) => {
@@ -27,6 +35,7 @@ class RandomPage extends React.Component {
       const randomNumber = getRandomInt(estimate);
 
       const response = await fetch(configStore.API_MOVIES + randomNumber, {
+        'signal': this.controller.signal,
         'method': 'get',
         'headers': {
           'User-Id': authStore.userId
@@ -42,7 +51,7 @@ class RandomPage extends React.Component {
   };
 
   fetchGenreNumbers = async () => {
-    const response = await fetch(configStore.API_MOVIES + 'estimate');
+    const response = await fetch(configStore.API_MOVIES + 'estimate', {'signal': this.controller.signal});
     return await response.json();
   };
 

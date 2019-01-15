@@ -16,6 +16,10 @@ class RecomPage extends React.Component {
     showProgressbar: false
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
   static handleWindowResize() {
     configStore.setMobile(window.innerWidth <= 600)
   }
@@ -26,6 +30,7 @@ class RecomPage extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', RecomPage.handleWindowResize);
+    this.controller.abort();
   }
 
   componentDidMount() {
@@ -58,6 +63,7 @@ class RecomPage extends React.Component {
     console.log("Fetching recommendations...");
 
     const response = await fetch(configStore.API_RECOM_BAYES, {
+      'signal': this.controller.signal,
       'method': 'get',
       'headers': {
         'User-Id': authStore.userId

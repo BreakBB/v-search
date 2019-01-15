@@ -8,6 +8,14 @@ class EstimateDisplay extends React.Component {
     estimate: 0
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
+  componentWillUnmount() {
+    this.controller.abort();
+  }
+
   componentDidMount() {
     this.fetchMovieEstimate().then((estimate) => {
       this.setState({
@@ -27,7 +35,7 @@ class EstimateDisplay extends React.Component {
   }
 
   async fetchMovieEstimate() {
-    const response = await fetch(this.props.moviesURL + 'estimate');
+    const response = await fetch(this.props.moviesURL + 'estimate', {'signal': this.controller.signal});
     return await response.json();
   }
 

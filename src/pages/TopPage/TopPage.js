@@ -16,6 +16,10 @@ class TopPage extends React.Component {
     showProgressbar: false
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
   static handleWindowResize = () => {
     configStore.setMobile(window.innerWidth <= 600)
   };
@@ -26,6 +30,7 @@ class TopPage extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', TopPage.handleWindowResize);
+    this.controller.abort();
   }
 
   componentDidMount() {
@@ -73,6 +78,7 @@ class TopPage extends React.Component {
     console.log("Fetching recommendations...");
 
     const response = await fetch(configStore.API_RECOM_NN, {
+      'signal': this.controller.signal,
       'method': 'get',
       'headers': {
         'User-Id': authStore.userId
@@ -86,7 +92,7 @@ class TopPage extends React.Component {
     let movieList = [];
 
     for (const movie of recomList) {
-      const response = await fetch(configStore.API_MOVIES + movie.id);
+      const response = await fetch(configStore.API_MOVIES + movie.id, {"signal": this.controller.signal});
       movieList.push(await response.json())
     }
 

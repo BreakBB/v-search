@@ -19,6 +19,14 @@ class LoginButton extends React.Component {
     loginFailed: false
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
+  componentWillUnmount() {
+    this.controller.abort();
+  }
+
   handleClickOpen = () => {
     this.setState({
       open: true,
@@ -36,6 +44,7 @@ class LoginButton extends React.Component {
   handleLogin = async () => {
     const response = await fetch(
       API_LOGIN, {
+        'signal': this.controller.signal,
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json'

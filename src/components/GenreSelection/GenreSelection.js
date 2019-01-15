@@ -24,12 +24,20 @@ class GenreSelection extends React.Component {
     selection: null
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
   componentDidMount() {
     this.fetchGenres().then((genres) => {
       this.setState({
         genres: genres
       });
     });
+  }
+
+  componentWillUnmount() {
+    this.controller.abort();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -46,7 +54,9 @@ class GenreSelection extends React.Component {
   }
 
   fetchGenres = async () => {
-    const response = await fetch(this.props.genresURL);
+    const response = await fetch(this.props.genresURL, {
+      "signal": this.controller.signal
+    });
     let genres = await response.json();
 
     genres = genres.sort();

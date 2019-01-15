@@ -18,6 +18,14 @@ class Rater extends React.Component {
     outOfMovies: false
   };
 
+  // The controller is used to abort any fetch calls
+  // Whenever a fetch/Promise isn't resolved yet and the component unmounts, it might lead to memory leaks
+  controller = new AbortController();
+
+  componentWillUnmount() {
+    this.controller.abort();
+  }
+
   componentDidMount() {
     // Here .then is used instead of async/await since "componentDidMount" is not an async method
     this.fetchGenreNumbers().then(async () => {
@@ -31,7 +39,6 @@ class Rater extends React.Component {
       // Here .then is used instead of async/await since "componentDidUpdate" is not an async method
       this.fetchGenreNumbers().then(async () => {
         this.processRandomMovie(await this.getRandomEntry());
-        return "asd";
       });
     }
   }
@@ -72,7 +79,7 @@ class Rater extends React.Component {
 
     const randomNumber = getRandomElement(genre_numbers);
 
-    const response = await fetch(configStore.API_MOVIES + randomNumber);
+    const response = await fetch(configStore.API_MOVIES + randomNumber, {'signal': this.controller.signal});
     if (response.status === 200) {
       return await response.json();
     }
@@ -82,6 +89,7 @@ class Rater extends React.Component {
   fetchGenreNumbers = async () => {
     const response = await fetch(
       configStore.API_GENRES + this.props.genre + '/numbers/' + this.props.type, {
+        'signal': this.controller.signal,
         'method': 'get',
         'headers': {
           'User-Id': authStore.userId
