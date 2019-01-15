@@ -3,6 +3,7 @@ export const HOME_PATH = PUBLIC_URL + "/";
 export const RATING_PATH = PUBLIC_URL + "/rating";
 export const RANDOM_PATH = PUBLIC_URL + "/random";
 export const RECOM_PATH = PUBLIC_URL + "/recom";
+export const TOP_PATH = PUBLIC_URL + "/top";
 
 // Check for dev environment
 let BACKEND_URL = "http://ec2-18-184-61-80.eu-central-1.compute.amazonaws.com";

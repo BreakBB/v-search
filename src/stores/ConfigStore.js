@@ -6,7 +6,8 @@ class ConfigStore {
   isMobile = false;
   API_MOVIES = "";
   API_GENRES = "";
-  API_RECOM = "";
+  API_RECOM_BAYES = "";
+  API_RECOM_NN = "";
 
   constructor() {
     this.isMobile = window.innerWidth <= 600;
@@ -14,12 +15,14 @@ class ConfigStore {
     if (langStore.language === langStore.DE) {
       this.API_MOVIES = API_DE_MOVIES;
       this.API_GENRES = API_DE_GENRES;
-      this.API_RECOM = API_DE + "recom";
+      this.API_RECOM_BAYES = API_DE + "recom/bayes";
+      this.API_RECOM_NN = API_DE + "recom/nn";
     }
     else {
       this.API_MOVIES = API_COM_MOVIES;
       this.API_GENRES = API_COM_GENRES;
-      this.API_RECOM = API_COM + "recom";
+      this.API_RECOM_BAYES = API_COM + "recom/bayes";
+      this.API_RECOM_NN = API_COM + "recom/nn";
     }
   }
 
@@ -43,6 +46,7 @@ decorate(ConfigStore, {
   isMobile: observable,
   API_MOVIES: observable,
   API_GENRES: observable,
+  API_RECOM: observable,
   setMobile: action,
   update: action
 });

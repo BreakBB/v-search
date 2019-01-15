@@ -6,6 +6,7 @@ import RatingIcon from '@material-ui/icons/ThumbsUpDown';
 import HomeIcon from '@material-ui/icons/Home';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
 import StarIcon from '@material-ui/icons/Star';
+import StarsIcon from '@material-ui/icons/Stars';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import List from "@material-ui/core/es/List/List";
 import ListItem from "@material-ui/core/es/ListItem/ListItem";
@@ -43,6 +44,12 @@ class MenuDrawer extends React.Component {
             <StarIcon/>
           </ListItemIcon>
           <ListItemText primary={'Empfehlungen'}/>
+        </ListItem>
+        <ListItem button key={'top'} onClick={() => this.props.history.push("/top")}>
+          <ListItemIcon>
+            <StarsIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Top 20 Empfehlungen'}/>
         </ListItem>
       </List>
     );
