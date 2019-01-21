@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
+import {observer} from 'mobx-react';
 import configStore from "../../stores/ConfigStore";
 import authStore from "../../stores/AuthStore";
 import Button from "@material-ui/core/es/Button/Button";
@@ -60,4 +61,4 @@ VoteButton.propTypes = {
   onVote: PropTypes.func.isRequired
 };
 
-export default VoteButton;
+export default observer(VoteButton);
