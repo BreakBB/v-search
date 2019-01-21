@@ -25,53 +25,53 @@ class AuthStore {
     }
   }
 
-  login(userId) {
+  login = (userId) => {
     this.isLoggedIn = true;
     this.userId = userId;
     this.refreshTokenTime();
     this.addListener();
-  }
+  };
 
   // Add different listeners to check for inactivity of the user
-  addListener() {
+  addListener = () => {
     document.addEventListener("mousemove", this.resetTimer, false);
     document.addEventListener("mousedown", this.resetTimer, false);
     document.addEventListener("keypress", this.resetTimer, false);
     document.addEventListener("touchmove", this.resetTimer, false);
 
     this.timeoutId = window.setTimeout(this.logout, this.inactiveTimer);
-  }
+  };
 
-  logout() {
+  logout = () => {
     this.isLoggedIn = false;
     this.removeToken();
     this.removeListener();
-  }
+  };
 
   // Remove the listeners since we just need to check logged in users
-  removeListener() {
+  removeListener = () => {
     document.removeEventListener("mousemove", this.resetTimer, false);
     document.removeEventListener("mousedown", this.resetTimer, false);
     document.removeEventListener("keypress", this.resetTimer, false);
     document.removeEventListener("touchmove", this.resetTimer, false);
 
     window.clearTimeout(this.timeoutId);
-  }
+  };
 
-  refreshTokenTime() {
+  refreshTokenTime = () => {
     window.localStorage.setItem('login_token', JSON.stringify({
       "timestamp": Date.now(),
       "userId": this.userId
     }));
-  }
+  };
 
-  removeToken() {
+  removeToken = () => {
     window.localStorage.removeItem('login_token');
-  }
+  };
 
-  resetTimer() {
+  resetTimer = () => {
     this.inactiveTimer = 60000;
-  }
+  };
 }
 
 decorate(AuthStore, {
