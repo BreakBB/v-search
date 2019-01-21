@@ -3,7 +3,7 @@ import {action, decorate, observable} from 'mobx';
 class AuthStore {
   isLoggedIn = false;
   userId = null;
-  inactiveTimer = 60000; // Timeout after 10 minutes
+  inactiveTimer = 600000; // Timeout after 10 minutes
   timeoutId = 0;
 
   constructor() {
@@ -70,7 +70,7 @@ class AuthStore {
   };
 
   resetTimer = () => {
-    this.inactiveTimer = 60000;
+    this.inactiveTimer = 600000;
   };
 }
 
