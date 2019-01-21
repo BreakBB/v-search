@@ -10,6 +10,7 @@ import TextField from "@material-ui/core/es/TextField/TextField";
 import DialogActions from "@material-ui/core/es/DialogActions/DialogActions";
 import authStore from "../../stores/AuthStore"
 import {API_LOGIN} from "../../app-config";
+import Typography from "@material-ui/core/es/Typography/Typography";
 
 class LoginButton extends React.Component {
   state = {
@@ -120,7 +121,8 @@ class LoginButton extends React.Component {
             />
             {
               this.state.loginFailed ?
-                "Login fehlgeschlagen" : null
+                <Typography variant="h6" className="error">Login fehlgeschlagen</Typography>
+                : null
             }
           </DialogContent>
           <DialogActions>
