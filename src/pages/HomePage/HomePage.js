@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import {EstimateDisplay, FilterButton, FilterSelection, GenreSelection, ResultTable, SearchBar} from '../../components';
 import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {RATINGS, FSK} from "../../components/FilterButton/constants";
+import {RATINGS} from "../../components/FilterButton/constants";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
 import configStore from '../../stores/ConfigStore';
 import dataStore from "../../stores/DataStore";
@@ -87,7 +87,7 @@ class HomePage extends React.Component {
           <FilterButton title="Bewertung" children={RATINGS} dataStoreAction={v => dataStore.setStarRating(v)}/>
           <FilterButton title="IMDb" type="number" dataStoreAction={v => dataStore.setIMDbRating(v)}/>
           <FilterButton title="Jahr" type="date" dataStoreAction={v => dataStore.setYear(v)}/>
-          <FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setMaturityRating(v)}/>
+          {/*<FilterButton title="FSK" children={FSK} dataStoreAction={v => dataStore.setMaturityRating(v)}/>*/}
         </FilterSelection>
         <GenreSelection genresURL={configStore.API_GENRES}/>
         {

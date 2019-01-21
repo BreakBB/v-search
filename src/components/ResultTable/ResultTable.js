@@ -91,14 +91,20 @@ class ResultTable extends React.Component {
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
+
+                  const movieId = n.movie_id;
+                  let genres = n.genres;
+                  if (genres == null) {
+                    genres = [];
+                  }
                   return (
                     <TableRow
                       hover
-                      onMouseEnter={() => this.handleRowHover(n.movie_id, true)}
-                      onMouseLeave={() => this.handleRowHover(n.movie_id, false)}
+                      onMouseEnter={() => this.handleRowHover(movieId, true)}
+                      onMouseLeave={() => this.handleRowHover(movieId, false)}
                       className="pointer"
                       tabIndex={-1}
-                      key={n.movie_id}
+                      key={movieId}
                     >
                       <TableCell
                         onClick={event => this.handleClick(event, n.url)}
@@ -106,7 +112,7 @@ class ResultTable extends React.Component {
                         scope="row"
                         padding="none"
                       >
-                        <img className="poster" style={{height: `${this.state.hovered[n.movie_id] ? '100px' : '80px'}`}}
+                        <img className="poster" style={{height: `${this.state.hovered[movieId] ? '100px' : '80px'}`}}
                              src={'data:image/jpeg;base64,' + arrayBufferToBase64(n.poster.data)} alt="None"/>
                       </TableCell>
                       <TableCell onClick={event => this.handleClick(event, n.url)} align="right">
@@ -118,14 +124,14 @@ class ResultTable extends React.Component {
                                  align="right">{n.imdb_rating}</TableCell>
                       <TableCell onClick={event => this.handleClick(event, n.url)} align="right">{n.year}</TableCell>
                       <TableCell onClick={event => this.handleClick(event, n.url)}
-                                 align="right">{n.genres.join(', ')}</TableCell>
+                                 align="right">{genres.join(', ')}</TableCell>
                       <TableCell onClick={event => this.handleClick(event, n.url)}
                                  align="right">{n.maturity_rating}</TableCell>
                       <TableCell align="right">
-                        <VoteButton upVote={true} movieId={n.movie_id} onVote={() => console.log("VOTE UP")}/>
+                        <VoteButton upVote={true} movieId={movieId} onVote={() => console.log("VOTE UP")}/>
                       </TableCell>
                       <TableCell align="right">
-                        <VoteButton upVote={false} movieId={n.movie_id} onVote={() => console.log("VOTE DOWN")}/>
+                        <VoteButton upVote={false} movieId={movieId} onVote={() => console.log("VOTE DOWN")}/>
                       </TableCell>
                     </TableRow>
                   );
