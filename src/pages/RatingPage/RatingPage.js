@@ -9,6 +9,7 @@ import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
 import Radio from "@material-ui/core/es/Radio/Radio";
 import './RatingPage.css';
+import '../general.css';
 import {EstimateDisplay, GenreSelection, Rater} from "../../components";
 
 class RatingPage extends React.Component {
@@ -53,8 +54,8 @@ class RatingPage extends React.Component {
     }
 
     return (
-      <Paper className="Rating-Page">
-        <Typography align="center" variant="h5" color="inherit" className="rating-heading">
+      <Paper className="paper-page">
+        <Typography align="center" variant="h5" color="inherit" className="rating-page heading">
           Bewerten
         </Typography>
         <EstimateDisplay label="Bewerten" moviesURL={configStore.API_MOVIES}/>

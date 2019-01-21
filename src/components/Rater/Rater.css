@@ -1,28 +1,14 @@
-h5.rater-heading {
+.rater.heading {
   padding-top: 15px;
   margin-bottom: 15px;
 }
 
-.rater-wrapper {
+.rater.wrapper {
   display: inline-flex;
   align-items: center;
 }
 
-.pointer {
-  cursor: pointer;
-}
-
-.movie-item {
-  margin-right: 5vw;
-  margin-left: 5vw;
-  margin-bottom: 5vh;
-}
-
-.btn-no-vote {
+.rater.btn-no-vote {
   display: inline-flex;
   align-items: center;
-}
-
-.movie-poster {
-  height: 150px;
 }

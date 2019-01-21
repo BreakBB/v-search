@@ -8,18 +8,7 @@
   min-width: 1020px;
 }
 
-.pointer {
-  cursor: pointer;
-}
-
 .table-wrapper {
   overflow: auto;
   margin: 10px;
-}
-
-img.poster {
-  height: 100px;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
 }

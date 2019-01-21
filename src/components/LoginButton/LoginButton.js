@@ -2,7 +2,6 @@ import React from 'react'
 import {observer} from 'mobx-react';
 import Button from '@material-ui/core/Button';
 import Dialog from "@material-ui/core/es/Dialog/Dialog";
-import "./LoginButton.css"
 import DialogTitle from "@material-ui/core/es/DialogTitle/DialogTitle";
 import DialogContent from "@material-ui/core/es/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/es/DialogContentText/DialogContentText";
@@ -121,7 +120,7 @@ class LoginButton extends React.Component {
             />
             {
               this.state.loginFailed ?
-                <Typography align="center" variant="h6" className="error">Login fehlgeschlagen</Typography>
+                <Typography align="center" variant="h6">Login fehlgeschlagen</Typography>
                 : null
             }
           </DialogContent>

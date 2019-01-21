@@ -4,6 +4,7 @@ import {observer} from 'mobx-react';
 import Button from "@material-ui/core/es/Button/Button";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import './Rater.css'
+import '../../pages/general.css'
 import {arrayBufferToBase64, getRandomElement} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import authStore from "../../stores/AuthStore";
@@ -123,11 +124,10 @@ class Rater extends React.Component {
       );
     }
     else if (this.state.randomMovie) {
-      console.log("MOVIE:", this.state.randomMovie);
       const movieId = this.state.randomMovie.movie_id;
 
       movieItem = (
-        <div className="rater-wrapper">
+        <div className="rater wrapper">
           <VoteButton upVote={true} movieId={movieId}
                       onVote={async () => this.processRandomMovie(await this.getRandomEntry())}/>
           <div className="movie-item">
@@ -136,7 +136,7 @@ class Rater extends React.Component {
                 this.state.randomMovie.title
               }
             </Typography>
-            <img className="movie-poster pointer" onClick={() => window.open(this.state.randomMovie.url, "_blank")}
+            <img className="poster pointer" onClick={() => window.open(this.state.randomMovie.url, "_blank")}
                  src={'data:image/jpeg;base64,' + arrayBufferToBase64(this.state.randomMovie.poster.data)} alt="None"
             />
           </div>
@@ -153,7 +153,7 @@ class Rater extends React.Component {
 
     return (
       <React.Fragment>
-        <Typography align="center" variant="h5" color="inherit" className="rater-heading">
+        <Typography align="center" variant="h5" color="inherit" className="rater heading">
           {
             this.props.type === "movies" ?
               "Bitte bewerte diesen Film"
@@ -166,7 +166,7 @@ class Rater extends React.Component {
           id="btnNoVote"
           variant="contained"
           color="secondary"
-          className="btn-no-vote"
+          className="rater btn-no-vote"
           onClick={this.handleNoVote}>
           Überspringen
         </Button>

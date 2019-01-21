@@ -4,7 +4,7 @@ import configStore from '../../stores/ConfigStore'
 import {observer} from 'mobx-react';
 import {Paper} from "@material-ui/core/es/index";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import './TopPage.css';
+import '../general.css';
 import ResultTable from "../../components/ResultTable/ResultTable";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 
@@ -115,7 +115,7 @@ class TopPage extends React.Component {
     }
 
     return (
-      <Paper className="Rating-Page">
+      <Paper className="paper-page">
         <Typography align="center" variant="h5" color="inherit" className="rating-heading">
           Hier sind Ihre Top 20 Empfehlungen
         </Typography>

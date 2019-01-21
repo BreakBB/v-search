@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types'
-import ResultTableHead from './ResultTableHead'
+import PropTypes from 'prop-types';
+import ResultTableHead from './ResultTableHead';
 import {
   Paper,
   Table,
@@ -11,7 +11,8 @@ import {
   Toolbar,
   Typography
 } from "@material-ui/core/es/index";
-import './ResultTable.css'
+import './ResultTable.css';
+import '../../pages/general.css';
 import {arrayBufferToBase64, getSorting, stableSort} from "../../utilities";
 import VoteButton from "../VoteButton/VoteButton";
 

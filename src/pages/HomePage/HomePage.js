@@ -1,12 +1,12 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {EstimateDisplay, FilterButton, FilterSelection, GenreSelection, ResultTable, SearchBar} from '../../components';
-import './HomePage.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {RATINGS} from "../../components/FilterButton/constants";
 import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/index";
 import configStore from '../../stores/ConfigStore';
 import dataStore from "../../stores/DataStore";
+import '../general.css'
 
 class HomePage extends React.Component {
 
@@ -65,7 +65,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Paper className="Home-Page">
+      <Paper className="paper-page">
         <SearchBar onSearchClick={this.onSearchClick}/>
         <EstimateDisplay label="Durchsuchen" moviesURL={configStore.API_MOVIES}/>
         <FilterSelection isMobile={configStore.isMobile}>

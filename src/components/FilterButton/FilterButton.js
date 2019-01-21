@@ -41,7 +41,7 @@ class FilterButton extends React.Component {
       <TextField
         select={this.props.type === "select"}
         type={this.props.type === "select" ? "select" : "number"}
-        className="filter-button"
+        className="filter-button button"
         label={this.props.title}
         value={this.state.selection}
         onChange={this.handleChange}
