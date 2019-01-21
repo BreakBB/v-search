@@ -121,7 +121,7 @@ class LoginButton extends React.Component {
             />
             {
               this.state.loginFailed ?
-                <Typography variant="h6" className="error">Login fehlgeschlagen</Typography>
+                <Typography align="center" variant="h6" className="error">Login fehlgeschlagen</Typography>
                 : null
             }
           </DialogContent>
