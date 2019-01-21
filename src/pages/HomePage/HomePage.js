@@ -7,6 +7,7 @@ import {FormControlLabel, FormGroup, Paper, Switch} from "@material-ui/core/es/i
 import configStore from '../../stores/ConfigStore';
 import dataStore from "../../stores/DataStore";
 import '../general.css'
+import {processMovieArray} from "../../utilities";
 
 class HomePage extends React.Component {
 
@@ -50,7 +51,7 @@ class HomePage extends React.Component {
 
     this.setState({
       showProgressbar: false,
-      data: json
+      data: processMovieArray(json)
     })
   };
 

@@ -38,3 +38,26 @@ export function getRandomInt(max) {
 export function getRandomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
+
+export function processMovieArray(movies) {
+  return movies.map((movie) => processMovie(movie));
+}
+
+export function processMovie(movie) {
+  if (movie.star_rating === 0) {
+    movie.star_rating = "-";
+  }
+  if (movie.imdb_rating === 0) {
+    movie.imdb_rating = "-";
+  }
+  if (movie.genres === null) {
+    movie.genres = ["-"];
+  }
+  if (movie.year === 0) {
+    movie.year = "-";
+  }
+  if (movie.maturity_rating === null) {
+    movie.maturity_rating = "-";
+  }
+  return movie;
+}

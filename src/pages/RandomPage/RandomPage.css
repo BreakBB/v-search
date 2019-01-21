@@ -1,21 +1,22 @@
-img.poster {
-  height: 100px;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
+.random-page.movie-item {
+  margin: 5vh 5vw;
 }
 
-.movie-item {
-  margin-right: 5vw;
-  margin-left: 5vw;
-  margin-bottom: 5vh;
-}
-
-.btn-no-vote {
+.random-page.btn-no-vote {
   display: inline-flex;
   align-items: center;
 }
 
-.pointer {
-  cursor: pointer;
+.random-page.details {
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-bottom: 5vh;
+}
+
+.random-page.inline {
+  display: inline-block;
+}
+
+.random-page.half {
+  width: 50%;
 }

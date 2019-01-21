@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/es/Typography/Typography";
 import '../general.css';
 import ResultTable from "../../components/ResultTable/ResultTable";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
+import {processMovieArray} from "../../utilities";
 
 class TopPage extends React.Component {
 
@@ -65,7 +66,7 @@ class TopPage extends React.Component {
     const movieList = await this.fetchMovieList(movies);
 
     this.setState({
-      movies: movieList,
+      movies: processMovieArray(movieList),
       showProgressbar: false
     });
   };

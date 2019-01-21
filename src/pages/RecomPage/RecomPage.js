@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/es/Typography/Typography";
 import ResultTable from "../../components/ResultTable/ResultTable";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import '../general.css';
+import {processMovieArray} from "../../utilities";
 
 class RecomPage extends React.Component {
 
@@ -50,7 +51,7 @@ class RecomPage extends React.Component {
     console.log("Fetched recommendations: ", movies);
 
     this.setState({
-      movies: movies,
+      movies: processMovieArray(movies),
       showProgressbar: false
     });
   };

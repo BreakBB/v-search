@@ -94,10 +94,6 @@ class ResultTable extends React.Component {
                 .map(n => {
 
                   const movieId = n.movie_id;
-                  let genres = n.genres;
-                  if (genres == null) {
-                    genres = [];
-                  }
                   return (
                     <TableRow
                       hover
@@ -125,7 +121,7 @@ class ResultTable extends React.Component {
                                  align="right">{n.imdb_rating}</TableCell>
                       <TableCell onClick={event => this.handleClick(event, n.url)} align="right">{n.year}</TableCell>
                       <TableCell onClick={event => this.handleClick(event, n.url)}
-                                 align="right">{genres.join(', ')}</TableCell>
+                                 align="right">{n.genres.join(', ')}</TableCell>
                       <TableCell onClick={event => this.handleClick(event, n.url)}
                                  align="right">{n.maturity_rating}</TableCell>
                       <TableCell align="right">

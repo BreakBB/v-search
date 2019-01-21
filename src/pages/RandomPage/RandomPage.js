@@ -1,11 +1,14 @@
 import React from 'react';
-import {arrayBufferToBase64, getRandomInt} from "../../utilities";
+import {arrayBufferToBase64, getRandomInt, processMovie} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import "./RandomPage.css"
+import '../general.css';
 import authStore from "../../stores/AuthStore";
 import configStore from "../../stores/ConfigStore";
 import Button from "@material-ui/core/es/Button/Button";
+import Paper from "@material-ui/core/es/Paper/Paper";
+import MovieDetails from "../../components/MovieDetails/MovieDetails";
 
 
 class RandomPage extends React.Component {
@@ -44,7 +47,7 @@ class RandomPage extends React.Component {
       const randomMovie = await response.json();
 
       this.setState({
-        randomMovie: randomMovie,
+        randomMovie: processMovie(randomMovie),
         estimate: estimate
       });
     }
@@ -62,24 +65,28 @@ class RandomPage extends React.Component {
   render() {
     if (this.state.randomMovie) {
       return (
-        <div className="movie-item">
-          <Typography align="center" variant="h6" color="inherit">
-            {
-              this.state.randomMovie.title
-            }
-          </Typography>
-          <img className="poster pointer" onClick={() => window.open(this.state.randomMovie.url, "_blank")}
-               src={'data:image/jpeg;base64,' + arrayBufferToBase64(this.state.randomMovie.poster.data)} alt="None"
-          />
-          <Button
-            id="btnNoVote"
-            variant="contained"
-            color="secondary"
-            className="btn-no-vote"
-            onClick={this.getNewMovie}>
-            Neue/r Serie/Film
-          </Button>
-        </div>
+        <Paper className="paper-page">
+          <div className="random-page movie-item">
+            <Typography align="center" variant="h6" color="inherit">
+              {
+                this.state.randomMovie.title
+              }
+            </Typography>
+            <img className="poster pointer"
+                 onClick={() => window.open(this.state.randomMovie.url, "_blank")}
+                 src={'data:image/jpeg;base64,' + arrayBufferToBase64(this.state.randomMovie.poster.data)} alt="None"
+            />
+            <MovieDetails movie={this.state.randomMovie}/>
+            <Button
+              id="btnNoVote"
+              variant="contained"
+              color="secondary"
+              className="random-page btn-no-vote"
+              onClick={this.getNewMovie}>
+              Neue/r Serie/Film
+            </Button>
+          </div>
+        </Paper>
       );
     }
     else {

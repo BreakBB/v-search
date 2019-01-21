@@ -5,11 +5,12 @@ import Button from "@material-ui/core/es/Button/Button";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import './Rater.css'
 import '../../pages/general.css'
-import {arrayBufferToBase64, getRandomElement} from "../../utilities";
+import {arrayBufferToBase64, getRandomElement, processMovie} from "../../utilities";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import authStore from "../../stores/AuthStore";
 import configStore from "../../stores/ConfigStore";
 import VoteButton from "../VoteButton/VoteButton";
+import MovieDetails from "../MovieDetails/MovieDetails";
 
 class Rater extends React.Component {
 
@@ -53,7 +54,7 @@ class Rater extends React.Component {
       return;
     }
 
-    console.log("Found random movie");
+    movie = processMovie(movie);
 
     if (this.state.randomMovie) {
       this.setState({
@@ -162,6 +163,9 @@ class Rater extends React.Component {
         </Typography>
         {movieItem}
         <br/>
+        {
+          this.state.randomMovie ? <MovieDetails movie={this.state.randomMovie}/> : null
+        }
         <Button
           id="btnNoVote"
           variant="contained"
